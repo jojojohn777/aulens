@@ -1,0 +1,155 @@
+
+
+ .login-container {
+    margin: auto;
+    width: 100%;
+    max-width: 380px;
+    overflow: hidden;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.alpha-loginform .login-header {
+    background-color: black;
+    color: white;
+    padding: 20px;
+    text-align: left;
+}
+
+.alpha-loginform  .login-header-title {
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+.alpha-loginform .login-header-subtitle {
+    font-size: 14px;
+    font-weight: normal;
+    opacity: 0.9;
+}
+
+.alpha-loginform .login-form-container {
+    background-color: white;
+    padding: 24px 20px;
+    border-radius: 0 0 12px 12px;
+}
+
+.alpha-loginform .login-title {
+    font-size: 22px;
+    font-weight: 500;
+    margin-bottom: 24px;
+    color: #222;
+}
+
+.alpha-loginform .login-form-group {
+    margin-bottom: 18px;
+}
+
+.alpha-loginform .login-label {
+    display: block;
+    font-size: 14px;
+    color: #333;
+    margin-bottom: 8px;
+}
+
+.alpha-loginform .forgot-password {
+    float: right;
+    font-size: 12px;
+    color: black;
+    text-decoration: none;
+    margin-top: 2px;
+}
+
+.alpha-loginform .login-input-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.alpha-loginform .login-input {
+    width: 100%;
+    padding: 12px 12px 12px 40px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 14px;
+    outline: none;
+}
+
+.alpha-loginform .login-input:focus {
+    border-color: black;
+}
+
+.alpha-loginform .login-input-icon {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #777;
+    width: 16px;
+    height: 16px;
+}
+
+.alpha-loginform .login-button {
+    width: 100%;
+    background-color: black;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 14px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    margin-top: 8px;
+    transition: background-color 0.2s;
+}
+
+.alpha-loginform .login-button:hover {
+    background-color: #3950b8;
+}
+
+.alpha-loginform .login-footer {
+    text-align: center;
+    margin-top: 24px;
+    font-size: 13px;
+    color: #555;
+}
+
+.alpha-loginform .signup-link {
+    color: black;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 480px) {
+    .login-container {
+        max-width: 100%;
+        border-radius: 0;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .alpha-loginform .login-form-container {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .alpha-loginform .login-button {
+        margin-top: auto;
+        margin-bottom: 20px;
+    }
+    
+    .alpha-loginform .login-footer {
+        margin-bottom: 20px;
+    }
+}
+
+
+
+
+
+
+
+
+

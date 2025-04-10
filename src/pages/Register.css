@@ -1,0 +1,294 @@
+.register-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+    background-color: #f5f5f5;
+  }
+  
+  .register-form-wrapper {
+    width: 100%;
+    max-width: 500px;
+    padding: 30px;
+    border-radius: 12px;
+    background-color: white;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+  
+  .register-title {
+    font-size: 24px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 24px;
+    text-align: left;
+  }
+  
+  .register-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  label {
+    font-size: 14px;
+    font-weight: 500;
+    color: #333;
+  }
+  
+  input, select, textarea {
+    padding: 12px 16px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.2s;
+    width: 100%;
+  }
+  
+  input:focus, select:focus, textarea:focus {
+    border-color: #4285f4;
+  }
+  
+  select, .form-select {
+    height: 44px;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23666' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 16px center;
+    background-size: 16px;
+    cursor: pointer;
+  }
+  
+  select:disabled {
+    background-color: #f5f5f5;
+    cursor: not-allowed;
+  }
+  
+  textarea {
+    resize: vertical;
+    min-height: 80px;
+  }
+  
+  .password-input-container {
+    position: relative;
+  }
+  
+  .password-toggle {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: #666;
+    cursor: pointer;
+    font-size: 12px;
+  }
+  
+  .error-message {
+    color: #e53935;
+    font-size: 14px;
+    margin-top: -10px;
+    margin-bottom: -10px;
+  }
+  
+  .register-button {
+    margin-top: 10px;
+    padding: 14px;
+    background-color: #4285f4;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+  
+  .register-button:hover:not(:disabled) {
+    background-color: #3367d6;
+  }
+  
+  .register-button:disabled {
+    background-color: #a1c2fa;
+    cursor: not-allowed;
+  }
+  
+  .login-link {
+    text-align: center;
+    font-size: 14px;
+    margin-top: 16px;
+    color: #666;
+  }
+  
+  .login-link a {
+    color: #4285f4;
+    text-decoration: none;
+    font-weight: 500;
+  }
+  
+  .login-link a:hover {
+    text-decoration: underline;
+  }
+  
+  /* Responsive Adjustments */
+  @media (max-width: 576px) {
+    .register-form-wrapper {
+      padding: 20px;
+    }
+    
+    .register-title {
+      font-size: 20px;
+      margin-bottom: 16px;
+    }
+    
+    .form-group {
+      gap: 6px;
+    }
+    
+    input, select, textarea {
+      padding: 10px 14px;
+      font-size: 13px;
+    }
+    
+    .register-button {
+      padding: 12px;
+      font-size: 15px;
+    }
+  }
+  
+  /* Focus accessibility */
+  input:focus, select:focus, textarea:focus, button:focus {
+    outline: 2px solid rgba(66, 133, 244, 0.3);
+    outline-offset: 1px;
+  }
+  
+  /* Error state for inputs */
+  input.error, select.error, textarea.error {
+    border-color: #e53935;
+  }
+  
+  /* Success state for inputs (optional) */
+  input.success, select.success, textarea.success {
+    border-color: #4caf50;
+  }
+  
+  /* Custom scrollbar for textarea */
+  textarea::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  textarea::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+  }
+  
+  textarea::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 4px;
+  }
+  
+  textarea::-webkit-scrollbar-thumb:hover {
+    background: #a8a8a8;
+  }
+  
+  /* Placeholder styling */
+  ::placeholder {
+    color: #aaa;
+    opacity: 1;
+  }
+  
+  :-ms-input-placeholder {
+    color: #aaa;
+  }
+  
+  ::-ms-input-placeholder {
+    color: #aaa;
+  }
+
+  /* Dropdown styling */
+.form-select {
+    padding: 12px 16px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.2s;
+    width: 100%;
+    height: 44px;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23666' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 16px center;
+    background-size: 16px;
+    cursor: pointer;
+  }
+  
+  .form-select:focus {
+    border-color: #4285f4;
+    outline: 2px solid rgba(66, 133, 244, 0.3);
+    outline-offset: 1px;
+  }
+  
+  .form-select:disabled {
+    background-color: #f5f5f5;
+    color: #999;
+    cursor: not-allowed;
+    border-color: #ddd;
+  }
+  
+  .form-select option {
+    padding: 8px;
+    font-size: 14px;
+  }
+  
+  /* Dropdown with error state */
+  .form-select.error {
+    border-color: #e53935;
+  }
+  
+  /* Dropdown with success state */
+  .form-select.success {
+    border-color: #4caf50;
+  }
+  
+  /* Responsive adjustments for dropdowns */
+  @media (max-width: 576px) {
+    .form-select {
+      padding: 10px 14px;
+      font-size: 13px;
+      height: 40px;
+    }
+    
+    .form-select option {
+      padding: 6px;
+      font-size: 13px;
+    }
+  }
+  
+  /* Hover effect for dropdowns */
+  .form-select:hover:not(:disabled) {
+    border-color: #aaa;
+  }
+  
+  /* Dropdown in focus with open dropdown */
+  .form-select:focus-within {
+    box-shadow: 0 2px 8px rgba(66, 133, 244, 0.2);
+  }
+  
+  /* Placeholder styling for select elements */
+  .form-select option[value=""][disabled] {
+    color: #aaa;
+  }
+ 
+  .register-container input, .register-container textarea {
+    background: unset;
+    color: black;
+  }

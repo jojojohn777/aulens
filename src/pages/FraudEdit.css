@@ -1,0 +1,26 @@
+.edit-container {
+    width: 50%;
+    margin: 20px auto;
+  }
+  
+  .fraud-edit-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .image-preview {
+    text-align: center;
+  }
+  
+  .customer-image-edit {
+    width: 100%;
+    height: 180px;
+    border-radius: 5px;
+  }
+  
+  .button-group {
+    /* display: flex; */
+    gap: 10px;
+  }
+  
