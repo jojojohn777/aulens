@@ -3,131 +3,173 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import ResetPassword from "./pages/ResetPassword";
-import { onMessageListener } from "./firebase"; // Import FCM listener
+import { onMessageListener } from "./firebase";
 import "./App.css";
+import "../src/assets/css/detected.css";
+
+const BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 function App() {
   const [notification, setNotification] = useState(null);
+  const [showPermissionBanner, setShowPermissionBanner] = useState(false);
+  const [userData, setUserData] = useState(null);
 
+  // Check and request notification permission
   useEffect(() => {
-    const unsubscribe = onMessageListener()
+    const checkPermission = async () => {
+      if (Notification.permission === "default") {
+        const permission = await Notification.requestPermission();
+        console.log("🔔 Notification permission:", permission);
+
+        if (permission === "denied") {
+          setShowPermissionBanner(true);
+        } else if (permission === "granted") {
+          setShowPermissionBanner(false);
+        }
+      } else if (Notification.permission === "denied") {
+        setShowPermissionBanner(true);
+      }
+    };
+
+    checkPermission();
+  }, []);
+
+  // Listen for incoming notifications
+  useEffect(() => {
+    let isMounted = true;
+
+    onMessageListener()
       .then((payload) => {
+        if (!isMounted) return;
+
         console.log("📩 Notification Received:", payload);
         setNotification(payload);
+        console.log(`${BASE_URL}/images/${notification.data.imageUrl}`);
+        console.log(`${BASE_URL}/images/${notification.data.nowimageurl}`);
 
-        // Show browser notification if permission is granted
         if (Notification.permission === "granted") {
           new Notification(payload.notification.title, {
             body: payload.notification.body,
             icon: payload.notification.nowimageurl || "/default-icon.png",
           });
         }
+
         reimage();
       })
       .catch((err) => console.error("Failed to receive message", err));
 
-    return () => unsubscribe; // Cleanup function
-  }, []); // Runs only once on mount
+    return () => {
+      isMounted = false;
+    };
+  }, []);
 
-  // Effect to reload page 12 seconds after a notification is received
+  // Refresh image for comparison
+  const reimage = async () => {
+    const imgTag = document.getElementById("reudyp");
+    if (!imgTag) return;
+    const currentSrc = imgTag.getAttribute("src");
+    imgTag.removeAttribute("src");
+    await new Promise((resolve) => setTimeout(resolve, 2000));
+    imgTag.setAttribute("src", currentSrc);
+    console.log("Image src reassigned:", currentSrc);
+  };
+
+  // Auto-hide notification after 30 minutes
   useEffect(() => {
     if (notification) {
       const timer = setTimeout(() => {
-        setNotification(null);
-        window.location.reload();
+        setNotification(null); // instead of window reload
       }, 1800000);
-
-      return () => clearTimeout(timer); // Cleanup timeout
+      return () => clearTimeout(timer);
     }
-  }, [notification]); // Runs whenever `notification` changes
+  }, [notification]);
 
-  
-  const reimage = async () => {
-    const imgTagId = 'reudyp'; // ID of the image tag
-    const imgTag = document.getElementById(imgTagId); // Get the img element by ID
-    
-    if (!imgTag) {
-      console.log('Image tag not found!');
-      return;
-    }
-  
-    // Get the current value of the 'src' attribute
-    const currentSrc = imgTag.getAttribute('src');
-    
-    // Remove the 'src' attribute temporarily
-    imgTag.removeAttribute('src');
-    
-    // Simulate some asynchronous operation (like waiting for some time or doing something else)
-    await new Promise(resolve => setTimeout(resolve, 2000)); // 2-second delay as an example
-    
-    // Reassign the 'src' value back to the img tag
-    imgTag.setAttribute('src', currentSrc);
-    
-    console.log('Image src reassigned:', currentSrc);
-  };
-  
-  
-
+  const isEdge = /Edg/.test(navigator.userAgent);
 
   return (
     <>
-      {notification ? (
-        <div style={{ display: "flex", flexDirection: "column", gap: "20px", alignItems: "center" }}>
-
-          <h2>{notification.notification.title}</h2>
-          <p>{notification.notification.body}</p>
-          {/* Image Comparison */}
-          <div style={{ display: "flex", gap: "20px", justifyContent: "center" }}>
-            <div style={{ width: "300px", height: "300px", overflow: "hidden" }}>
-              <img
-                src={`http://localhost:1337/images/${notification.data.imageUrl}`}
-                alt="Identifier"
-                style={{
-                  width: "100%",
-                  height: "100%",
-                  objectFit: "contain",
-                  borderRadius: "5px",
-                  border: "1px solid #ccc",
-                }}
-              />
-            </div>
-            <div style={{ width: "300px", height: "300px", overflow: "hidden" }}>
-              <img id="reudyp"
-                src={`http://localhost:1337/images/${notification.data.nowimageurl}`}
-                alt="Fraud"
-                loading="lazy"
-                style={{
-                  width: "100%",
-                  height: "100%",
-                  objectFit: "contain",
-                  borderRadius: "5px",
-                  border: "1px solid #ccc",
-                }}
-              />
-            </div>
-          </div>
-
-          {/* Identifier & Fraud Details */}
-          <div style={{ display: "flex", gap: "20px", justifyContent: "center", width: "80%" }}>
-            <div style={{ flex: 1, padding: "10px", border: "1px solid #ccc", borderRadius: "10px" }}>
-              <h3>Identifier</h3>
-              <p><strong>Name:</strong> {notification.data.username}</p>
-              <p><strong>Phone:</strong> {notification.data.usermobile}</p>
-              <p><strong>Email:</strong> {notification.data.useremail}</p>
-              <p><strong>Business Name:</strong> {notification.data.userbusiness}</p>
-            </div>
-
-            <div style={{ flex: 1, padding: "10px", border: "1px solid #ccc", borderRadius: "10px" }}>
-              <h3>Fraud</h3>
-              <p><strong>Name:</strong> {notification.data.fraudname}</p>
-              <p><strong>Address:</strong> {notification.data.fraudadress}</p>
-            </div>
-          </div>
+      {showPermissionBanner && (
+        <div
+          style={{
+            background: "#ffdcdc",
+            color: "#000",
+            padding: "10px",
+            textAlign: "center",
+            borderBottom: "1px solid #ccc",
+          }}
+        >
+          🔕 Notifications are disabled. Please enable them in your browser settings:
+          <br />
+          <strong>
+            {isEdge
+              ? "Edge: Settings > Cookies and site permissions > Notifications"
+              : "Click the 🔒 icon in the address bar and allow notifications."}
+          </strong>
         </div>
+      )}
 
-
+      {notification ? (
+      //  <!-- Notification Component -->
+       <div class="notification-comparison-container container">
+         <div class="notification-header text-center">
+           <h2 class="notification-title">Match found!</h2>
+           <p class="notification-body">{notification.notification.body}</p>
+           <p>Match percentage {notification.data.similarity}</p>
+         </div>
+         
+         {/* <!-- Image Comparison Section --> */}
+         <div class="notification-image-comparison">
+           <div class="notification-image-box">
+             <img
+               src={`${BASE_URL}/images/${notification.data.imageUrl}`}
+               alt="Identifier"
+               class="notification-comparison-img"
+             />
+           </div>
+           <div class="notification-image-box">
+             <img
+               id="reudyp"
+               src={`${BASE_URL}/images/${notification.data.nowimageurl}`}
+               alt="Fraud"
+               loading="lazy"
+               class="notification-comparison-img"
+             />
+           </div>
+         </div>
+         
+         {/* <!-- Details Section --> */}
+         <div class="notification-details-container">
+           <div class="notification-detail-card verification-card">
+             <h3 class="notification-detail-title">Identifier</h3>
+             <div class="detail-grid">
+               <strong>Name:</strong>
+               <span>{notification.data.username}</span>
+               
+               <strong>Phone:</strong>
+               <span>{notification.data.usermobile}</span>
+               
+               <strong>Email:</strong>
+               <span>{notification.data.useremail}</span>
+               
+               <strong>Business Name:</strong>
+               <span>{notification.data.userbusiness}</span>
+             </div>
+           </div>
+           
+           <div class="notification-detail-card verification-card">
+             <h3 class="notification-detail-title">Fraud</h3>
+             <div class="detail-grid">
+               <strong>Name:</strong>
+               <span>{notification.data.fraudname}</span>
+               
+               <strong>Address:</strong>
+               <span>{notification.data.fraudadress}</span>
+             </div>
+           </div>
+         </div>
+         <p> Photo uploaded on {notification.data.formattedDate}</p>
+       </div>
       ) : (
-        // Show the main app when there's no notification
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Login />} />

@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
+const BASE_URL = import.meta.env.VITE_API_BASE_URL;
+import axios from 'axios';
 
 const VotersID = () => {
   const [voterID, setVoterID] = useState("");
@@ -24,26 +26,30 @@ const VotersID = () => {
     const taskId = uuidv4(); // Generate taskId just before making the request
 
     try {
-      const response = await fetch("http://localhost:1337/voterid/verify-Voterid", {
-        method: "POST",
-        credentials: "include",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
+      const response = await axios.post(
+        `${BASE_URL}/voterid/verify-Voterid`,
+        {
           customer_epic_number: voterID,
           consent: "Y",
           consent_text: "I hereby declare my consent agreement for fetching my information via ZOOP API.",
           task_id: taskId,
-        }),
-      });
+        },
+        {
+          withCredentials: true, // equivalent to fetch's `credentials: "include"`
+          headers: {
+            "Content-Type": "application/json", // optional, Axios sets it by default
+          },
+        }
+      );
 
-      const dataResult = await response.json();
+      const dataResult = await response.data;
 
       if (response.status === 403) {
         alert("🚨 API limit exceeded!");// ✅ Proper alert message
         return; // ✅ Stops further execution
       }
 
-      if (response.ok && dataResult.success) {
+      if (response.status===200 && dataResult.success) {
         setUserData(dataResult.voterData); // Use voterData from API response
       } else {
         setError(dataResult.error || "Verification failed.");
@@ -56,58 +62,163 @@ const VotersID = () => {
   };
 
   return (
-    <div className="container ">
-      <h2 className="mb-4">Voter ID Verification</h2>
-
+    <div className="container" style={{ maxWidth: '600px', margin: '0 auto' }}>
+      <h2 className="feature-text-content" style={{ 
+        color: 'var(--text-hover)', 
+        marginBottom: '30px',
+        textAlign: 'center'
+      }}>
+        Voter ID Verification
+      </h2>
+  
       {userData ? (
-        <div className="border p-4 rounded">
-          <button className="btn btn-secondary mb-3" onClick={() => setUserData(null)}>
+        <div style={{
+          backgroundColor: 'var(--bg-dropdown)',
+          border: '1px solid var(--border-color)',
+          borderRadius: '8px',
+          padding: '25px',
+          marginBottom: '20px'
+        }}>
+          <button 
+            className="btn--primary" 
+            onClick={() => setUserData(null)}
+            style={{
+              marginBottom: '20px',
+              padding: '8px 16px',
+              fontSize: '14px'
+            }}
+          >
             Back
           </button>
-          <h2>✅ Verification Successful</h2>
-          <p><strong>Voter ID:</strong> {userData.epic_number}</p>
-          <p><strong>Name:</strong> {userData.user_name_english}</p>
-          <p><strong>State:</strong> {userData.address.state}</p>
-          <p><strong>District:</strong> {userData.address.district_name}</p>
-          <p><strong>Assembly Constituency:</strong> {userData.assembly_constituency_name}</p>
-          <p><strong>Polling Booth:</strong> {userData.polling_booth.name}</p>
+          
+          <div style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '10px',
+            marginBottom: '15px'
+          }}>
+            <div style={{
+              color: 'var(--btn-primary)',
+              fontSize: '24px'
+            }}>✓</div>
+            <h2 style={{ 
+              color: 'var(--text-hover)',
+              margin: 0
+            }}>Verification Successful</h2>
+          </div>
+          
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'max-content 1fr',
+            gap: '10px 15px',
+            alignItems: 'baseline'
+          }}>
+            <strong style={{ color: 'var(--text-hover)' }}>Voter ID:</strong>
+            <span>{userData.epic_number}</span>
+            
+            <strong style={{ color: 'var(--text-hover)' }}>Name:</strong>
+            <span>{userData.user_name_english}</span>
+            
+            <strong style={{ color: 'var(--text-hover)' }}>State:</strong>
+            <span>{userData.address.state}</span>
+            
+            <strong style={{ color: 'var(--text-hover)' }}>District:</strong>
+            <span>{userData.address.district_name}</span>
+            
+            <strong style={{ color: 'var(--text-hover)' }}>Assembly Constituency:</strong>
+            <span>{userData.assembly_constituency_name}</span>
+            
+            <strong style={{ color: 'var(--text-hover)' }}>Polling Booth:</strong>
+            <span>{userData.polling_booth.name}</span>
+          </div>
         </div>
       ) : (
         <div>
-          <p>Enter your Voter ID for verification:</p>
-
-          <div className="mb-3">
-            <label className="form-label">Voter ID</label>
+          <p style={{ 
+            color: 'var(--text-color)',
+            marginBottom: '20px',
+            textAlign: 'center'
+          }}>
+            Enter your Voter ID for verification:
+          </p>
+  
+          <div style={{ marginBottom: '20px' }}>
+            <label style={{
+              display: 'block',
+              color: 'var(--text-color)',
+              marginBottom: '8px',
+              fontWeight: '500'
+            }}>
+              Voter ID
+            </label>
             <input
               type="text"
               placeholder="Enter Voter ID"
-              className="form-control"
               value={voterID}
               onChange={(e) => setVoterID(e.target.value)}
+              style={{
+                width: '100%',
+                padding: '12px 15px',
+                borderRadius: '5px',
+                border: '1px solid var(--border-color)',
+                backgroundColor: 'var(--bg-dropdown)',
+                color: 'var(--text-color)',
+                fontSize: '16px'
+              }}
             />
           </div>
-
-          <div className="form-check mb-3">
+  
+          <div style={{ 
+            display: 'flex',
+            alignItems: 'center',
+            gap: '10px',
+            marginBottom: '25px'
+          }}>
             <input
               type="checkbox"
-              className="form-check-input"
               checked={consent}
               onChange={(e) => setConsent(e.target.checked)}
+              style={{
+                width: '18px',
+                height: '18px',
+                accentColor: 'var(--btn-primary)'
+              }}
             />
-            <label className="form-check-label">
+            <label style={{ color: 'var(--text-color)' }}>
               I agree to let Zoop.one verify my data.
             </label>
           </div>
-
+  
           <button
             onClick={handleVerifyVoterID}
             disabled={!consent || loading}
-            className="btn btn-primary w-100 mb-3"
+            className="btn--primary"
+            style={{
+              width: '100%',
+              padding: '12px',
+              fontSize: '16px',
+              opacity: (!consent || loading) ? 0.7 : 1,
+              cursor: (!consent || loading) ? 'not-allowed' : 'pointer'
+            }}
           >
-            {loading ? "Verifying..." : "Verify Voter ID"}
+            {loading ? (
+              <span style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}>
+                <span>Verifying...</span>
+              </span>
+            ) : (
+              "Verify Voter ID"
+            )}
           </button>
-
-          {error && <p className="text-danger mt-3">{error}</p>}
+  
+          {error && (
+            <p style={{
+              color: '#ff6b6b',
+              marginTop: '15px',
+              textAlign: 'center'
+            }}>
+              {error}
+            </p>
+          )}
         </div>
       )}
     </div>

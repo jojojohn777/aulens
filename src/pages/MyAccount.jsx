@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import "./MyAccount.css";
+const BASE_URL = import.meta.env.VITE_API_BASE_URL;
+import axios from 'axios';
 
 const MyAccount = ({ userId }) => {
   const [oldPassword, setOldPassword] = useState("");
@@ -20,13 +22,22 @@ const MyAccount = ({ userId }) => {
     }
 
     try {
-      const response = await fetch("http://localhost:1337/user/changepassword", {
-        method: "POST",
-        credentials: 'include',
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ userId, oldPassword, newPassword }),
-      });
-      const result = await response.json();
+
+      const response = await axios.post(
+        `${BASE_URL}/user/changepassword`,
+        {
+          userId,
+          oldPassword,
+          newPassword,
+        },
+        {
+          withCredentials: true, // to include cookies/session info
+          headers: {
+            "Content-Type": "application/json", // optional, Axios sets this by default
+          },
+        }
+      );
+      const result = await response.data;
 
       if (!result.success) {
         setError("Old password is incorrect.");
@@ -43,34 +54,51 @@ const MyAccount = ({ userId }) => {
   };
 
   return (
-    <div className="fraud-container-account">
-      <h3>Change Password</h3>
-      <label>Old Password:</label>
-      <input
-        type="password"
-        className="form-control"
-        value={oldPassword}
-        onChange={(e) => setOldPassword(e.target.value)}
-      />
-      <label>New Password:</label>
-      <input
-        type="password"
-        className="form-control"
-        value={newPassword}
-        onChange={(e) => setNewPassword(e.target.value)}
-      />
-      <label>Confirm Password:</label>
-      <input
-        type="password"
-        className="form-control"
-        value={confirmPassword}
-        onChange={(e) => setConfirmPassword(e.target.value)}
-      />
-      {error && <p className="text-danger">{error}</p>}
-      <button className="btn btn-success mt-3" onClick={handlePasswordChange}>
-        Change Password
-      </button>
-    </div>
+    <section className="scan-photo-section">
+      <div className="container main-section-hero">
+        <div className="scan-photo-mob">
+          <h1>Change Password</h1>
+          <br />
+          <p>
+            Update your account password securely. Make sure to choose a strong password 
+            that includes a mix of letters, numbers, and special characters.
+          </p>
+        </div>
+        <div>
+          <div className="custum-file-upload update-pass">
+            <div className="form-container">
+              <label>Old Password:</label>
+              <input
+                type="password"
+                className="form-control"
+                value={oldPassword}
+                onChange={(e) => setOldPassword(e.target.value)}
+              />
+              <label>New Password:</label>
+              <input
+                type="password"
+                className="form-control"
+                value={newPassword}
+                onChange={(e) => setNewPassword(e.target.value)}
+              />
+              <label>Confirm Password:</label>
+              <input
+                type="password"
+                className="form-control"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+              />
+              {error && <p style={{color: "#ff5252"}}>{error}</p>}
+            </div>
+            <div className="tak-pic-div">
+              <button className="btn btn--primary" onClick={handlePasswordChange}>
+                Change Password
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
   );
 };
 

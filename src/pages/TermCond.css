@@ -1,0 +1,347 @@
+/* TermCond.css */
+.termcond-form {
+  .terms-container {
+    font-family: Arial, sans-serif;
+    max-width: 800px;
+    margin: 0 auto;
+    border: 1px solid #ddd;
+    padding: 20px;
+    background-color: white;
+    color: black;
+  }
+  
+  .terms-title {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  
+  .user-info {
+    margin-bottom: 30px;
+  }
+  
+  .info-row {
+    display: flex;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 5px;
+  }
+  
+  .info-label {
+    width: 150px;
+    font-weight: bold;
+  }
+  
+  .info-value {
+    flex: 1;
+  }
+  
+  .terms-content {
+    margin-bottom: 20px;
+  }
+  
+  .terms-content ol {
+    padding-left: 20px;
+  }
+  
+  .terms-content li {
+    margin-bottom: 10px;
+  }
+  
+  .checkbox-container {
+    margin: 20px 0;
+  }
+  
+  .checkbox-container label {
+    margin-left: 5px;
+  }
+  
+  .submit-button {
+    background-color: black;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  .submit-button:hover {
+    background-color: #333;
+  }
+  
+  .error-message {
+    color: black;
+    background-color: #f8f8f8;
+    padding: 10px;
+    border: 1px solid black;
+    margin-top: 10px;
+  }
+  
+  .debug-info {
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid #ddd;
+  }
+  
+  .debug-info pre {
+    background-color: #f8f8f8;
+    padding: 10px;
+    overflow: auto;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    border: 1px solid #eee;
+  }
+  
+  input,
+  select,
+  textarea {
+    background: none;
+    border: none !important;
+    border-bottom: .7px solid gray !important;
+  
+    width: unset !important;
+    border-bottom: currentcolor;
+    border-radius: unset !important;
+    padding: 0 !important;
+    color: black;
+  }
+  
+  input:focus,
+  select:focus,
+  textarea:focus,
+  button:focus {
+    outline: 2px solid rgba(66, 133, 244, 0.3);
+    outline-offset: 1px;
+    outline: unset !important;
+    color: black;
+  }
+  
+  /* TandC.css */
+  .au-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+  
+  .au-modal-content {
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    width: 90%;
+    max-width: 600px;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+    animation: au-modal-fade-in 0.3s ease;
+  }
+  
+  @keyframes au-modal-fade-in {
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+  
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .au-modal-header {
+    padding: 20px 25px;
+    border-bottom: 1px solid #e5e7eb;
+    position: sticky;
+    top: 0;
+    background-color: #ffffff;
+    z-index: 10;
+    border-radius: 8px 8px 0 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .au-modal-title {
+    margin: 0;
+    font-size: 1.5rem;
+    color: #2563eb;
+    flex-grow: 1;
+  }
+  
+  .au-close-btn {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #6b7280;
+    transition: color 0.2s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+  }
+  
+  .au-close-btn:hover {
+    color: #1f2937;
+    background-color: #f3f4f6;
+  }
+  
+  .au-modal-body {
+    padding: 20px 25px;
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+  
+  .au-terms-list {
+    padding-left: 20px;
+    margin-bottom: 20px;
+  }
+  
+  .au-terms-list li {
+    margin-bottom: 12px;
+  }
+  
+  .au-warning-text {
+    font-weight: bold;
+    color: #dc2626;
+    margin-top: 20px;
+  }
+  
+  .au-modal-footer {
+    padding: 15px 25px;
+    border-top: 1px solid #e5e7eb;
+    display: flex;
+    justify-content: space-between;
+    background-color: #f3f4f6;
+    border-radius: 0 0 8px 8px;
+  }
+  
+  .au-btn {
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: none;
+    font-size: 1rem;
+  }
+  
+  .au-btn-primary {
+    background-color: #2563eb;
+    color: white;
+  }
+  
+  .au-btn-primary:hover {
+    background-color: #1e40af;
+  }
+  
+  .au-btn-secondary {
+    background-color: #f3f4f6;
+    color: #1f2937;
+    border: 1px solid #e5e7eb;
+  }
+  
+  .au-btn-secondary:hover {
+    background-color: #e5e7eb;
+  }
+  
+  .au-language-selector {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+  }
+  
+  .au-language-btn {
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.875rem;
+    background-color: #f3f4f6;
+    border: 1px solid #e5e7eb;
+    transition: all 0.2s ease;
+  }
+  
+  .au-language-btn.au-active {
+    background-color: #2563eb;
+    color: white;
+    border-color: #2563eb;
+  }
+  
+  /* Responsive styles */
+  @media (max-width: 640px) {
+    .au-modal-content {
+      width: 95%;
+      max-height: 85vh;
+    }
+  
+    .au-modal-footer {
+      flex-direction: column;
+      gap: 10px;
+    }
+  
+    .au-btn {
+      width: 100%;
+    }
+  
+    .au-modal-title {
+      font-size: 1.25rem;
+    }
+  }
+  
+  button {
+    border-radius: 8px;
+    border: 1px solid transparent;
+    padding: 0.6em 1.2em;
+    font-size: 1em;
+    font-weight: 500;
+    font-family: inherit;
+    /* background-color: unset; */
+    cursor: pointer;
+    transition: border-color 0.25s;
+  }
+  
+  .modal-btn {
+    color: black;
+    background-color: unset;
+  }
+  
+  .submit-button {
+    color: white !important;
+  }
+  
+  
+  input[type="number"]::-webkit-outer-spin-button,
+  input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  
+  /* For Firefox */
+  input[type="number"] {
+    -moz-appearance: textfield;
+  }
+  
+  .whatsapp-check {
+    margin-top: 10px;
+  
+    span {
+      margin-right: 10px;
+    }
+  }
+  
+  .password-div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+  }

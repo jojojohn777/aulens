@@ -19,7 +19,7 @@
   // Request FCM token
   export const requestFCMToken = async () => {
     try {
-      const token = await getToken(messaging, { vapidKey: "BEGz7AlaFH7NropwMkoDOkjIFG2tLi3soEK2-TCha0AIT74yAIvXdgFxaBFBH0yWXxO3rPmze2UyikeBV1ZZljQ" });
+      const token = await getToken(messaging, { vapidKey: "BC4LaM2nrytphjhYg_On_QaxfzWWbinzOEJ0ryWJkqHUJ9cH_ftUJ1KB0FUIFq0He2vHxDHSRemunDgcMruT0Iw" });
       return token;
     } catch (error) {
       console.error("Error getting FCM token:", error);
@@ -27,14 +27,21 @@
     }
   };
   
-  // Listen for incoming messages
-  export const onMessageListener = () => {
-    return new Promise((resolve) => {
-      onMessage(messaging, (payload) => {
-        resolve(payload);
-      });
+  // // Listen for incoming messages
+  // export const onMessageListener = () => {
+  //   return new Promise((resolve) => {
+  //     onMessage(messaging, (payload) => {
+  //       resolve(payload);
+  //     });
+  //   });
+  // };
+
+  export const onMessageListener = () =>
+  new Promise((resolve) => {
+    onMessage(messaging, (payload) => {
+      resolve(payload);
     });
-  };
+  });
 
   // Delete FCM token
 export const deleteFCMToken = async () => {

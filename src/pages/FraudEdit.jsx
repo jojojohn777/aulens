@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import './FraudEdit.css';
+const BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
 
 const FraudEdit = ({ customer, onSave, onCancel }) => {
   const [formData, setFormData] = useState({
@@ -28,7 +30,7 @@ const FraudEdit = ({ customer, onSave, onCancel }) => {
         <div className="image-preview">
           {customer.ImagePath ? (
             <img
-              src={`http://localhost:1337/images/${customer.ImagePath}`}
+              src={`${BASE_URL}/images/${customer.ImagePath}`}
               alt={customer.name}
               className="customer-image-edit"
             />

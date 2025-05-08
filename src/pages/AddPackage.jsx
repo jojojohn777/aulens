@@ -1,139 +1,161 @@
-import React, { useState, useEffect } from "react";
+import React, { useState} from "react";
+const BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
-const AddPackage = ({ goBack }) => {
-    const [packageName, setPackageName] = useState("");
-    const [instances, setInstances] = useState(1);
-    const [timeInDays, setTimeInDays] = useState(1);
-    const [discount, setDiscount] = useState(0);
-    const [costPerInstance, setCostPerInstance] = useState(0);
-    const [customise, setCustomise] = useState(0); // 0 = Normal, 1 = Custom
-    const [groups, setGroups] = useState([]);
-    const [selectedGroup, setSelectedGroup] = useState(null);
+import axios from 'axios';
 
-    useEffect(() => {
-        fetchGroups();
-    }, []);
+const AddPackage = ({goBack}) => {
+  const [packageData, setPackageData] = useState({
+    PackageName: '',
+    Description: '',
+    Total_Cost: '',
+    Validity: '',
+    face_Instance: '',
+    kyc_instance: '',
+    Discount: '',
+    Costper_face: '',
+    Costper_kyc: '',
+    Customise: false, // Default false
+  });
 
-    const fetchGroups = async () => {
-        try {
-            const response = await fetch("http://localhost:1337/group/findAll", {
-                credentials: 'include',
-            });
-            if (!response.ok) throw new Error("Failed to fetch groups");
-            const data = await response.json();
-            const groupOptions = data.map((group) => ({
-                value: group.GroupID,
-                label: group.GroupName,
-            }));
-            setGroups(groupOptions);
-        } catch (error) {
-            console.error("Error fetching groups", error);
-        }
-    };
+  const handleChange = (e) => {
+    const { name, value, type, checked } = e.target;
+    setPackageData((prevData) => ({
+      ...prevData,
+      [name]: type === 'checkbox' ? checked : value,
+    }));
+  };
 
-    const totalCost = instances * costPerInstance;
-    const finalPrice = totalCost - (totalCost * discount) / 100;
-
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-
-        const packageData = {
-            PackageName: packageName,
-            Description: `${instances} Instances for ${timeInDays} days`,
-            Costper: costPerInstance,
-            Cost: finalPrice.toFixed(2),
-            Validity: timeInDays,
-            Instance: instances,
-            Discount: discount,
-            Customise: customise,
-            ...(customise === 1 && { GroupID: selectedGroup }),
-        };
-
-        try {
-            console.log(packageData);
-            const response = await fetch("http://localhost:1337/package/create", {
-                method: "POST",
-                credentials: 'include',
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+        const response = await axios.post(
+            `${BASE_URL}/package/create`,
+            packageData,
+            {
+                withCredentials: true, // Include credentials (cookies, auth headers, etc.)
                 headers: {
-                    "Content-Type": "application/json"
+                    "Content-Type": "application/json",
                 },
-                body: JSON.stringify(packageData)
-            });
-
-            const result = await response.json();
-
-            if (response.ok) {
-                alert(`Package "${packageName}" added successfully!`);
-                goBack();
-            } else {
-                alert(`Error: ${result.message || "Failed to add package"}`);
             }
-        } catch (error) {
-            console.error("Error adding package:", error);
-            alert("Something went wrong. Please try again.");
-        }
-    };
+        );
+      alert('Package created successfully!');
+      setPackageData({
+        PackageName: '',
+        Description: '',
+        Total_Cost: '',
+        Validity: '',
+        face_Instance: '',
+        kyc_instance: '',
+        Discount: '',
+        Costper_face: '',
+        Costper_kyc: '',
+        Customise: false,
+      });
+      console.log(response.data);
+    } catch (error) {
+      console.error('Error creating package:', error);
+      alert('Error creating package.');
+    }
+  };
 
-    return (
-        <div>
-            <h2>Add Package</h2>
-            <form onSubmit={handleSubmit}>
-                <label>
-                    <input
-                        type="radio"
-                        name="customise"
-                        value={0}
-                        checked={customise === 0}
-                        onChange={() => setCustomise(0)}
-                    /> Normal
-                </label>
-                <label>
-                    <input
-                        type="radio"
-                        name="customise"
-                        value={1}
-                        checked={customise === 1}
-                        onChange={() => setCustomise(1)}
-                    /> Custom
-                </label>
-                <br></br>
-                {customise === 1 && (
-                    <label>
-                        Select Group:
-                        <select value={selectedGroup || ""} onChange={(e) => setSelectedGroup(e.target.value)} required>
-                            <option value="" disabled>Select a group</option>
-                            {groups.map((group) => (
-                                <option key={group.value} value={group.value}>{group.label}</option>
-                            ))}
-                        </select>
-                    </label>
-                )}
-                <br>
-                </br>
+  return (
+    <div style={{ maxWidth: '500px', margin: 'auto', padding: '20px' }}>
+      <h2>Create Package</h2>
+      <form onSubmit={handleSubmit}>
+        <input
+          type="text"
+          name="PackageName"
+          placeholder="Package Name"
+          value={packageData.PackageName}
+          onChange={handleChange}
+          required
+        /><br /><br />
 
-                <label>Package Name:</label>
-                <input type="text" value={packageName} onChange={(e) => setPackageName(e.target.value)} required />
+        <textarea
+          name="Description"
+          placeholder="Description"
+          value={packageData.Description}
+          onChange={handleChange}
+          required
+        /><br /><br />
 
-                <label>No. of Instances:</label>
-                <input type="number" value={instances} onChange={(e) => setInstances(Math.max(1, Number(e.target.value)))} required />
+        <input
+          type="number"
+          name="Total_Cost"
+          placeholder="Total Cost"
+          value={packageData.Total_Cost}
+          onChange={handleChange}
+          required
+        /><br /><br />
 
-                <label>Time (in Days):</label>
-                <input type="number" value={timeInDays} onChange={(e) => setTimeInDays(Math.max(1, Number(e.target.value)))} required />
+        <input
+          type="number"
+          name="Validity"
+          placeholder="Validity (in days)"
+          value={packageData.Validity}
+          onChange={handleChange}
+          required
+        /><br /><br />
 
-                <label>Discount %:</label>
-                <input type="number" value={discount} onChange={(e) => setDiscount(Math.max(0, Math.min(100, Number(e.target.value))))} required />
+        <input
+          type="number"
+          name="face_Instance"
+          placeholder="Face Instance"
+          value={packageData.face_Instance}
+          onChange={handleChange}
+          required
+        /><br /><br />
 
-                <label>Cost per Instance:</label>
-                <input type="number" value={costPerInstance} onChange={(e) => setCostPerInstance(Math.max(0, Number(e.target.value)))} required />
+        <input
+          type="number"
+          name="kyc_instance"
+          placeholder="KYC Instance"
+          value={packageData.kyc_instance}
+          onChange={handleChange}
+          required
+        /><br /><br />
 
-                <div><strong>Total Cost:</strong> ${totalCost.toFixed(2)}</div>
-                <div><strong>Final Price:</strong> ${finalPrice.toFixed(2)}</div>
+        <input
+          type="number"
+          name="Discount"
+          placeholder="Discount (%)"
+          value={packageData.Discount}
+          onChange={handleChange}
+        /><br /><br />
 
-                <button type="submit">Add Package</button>
-            </form>
-            <button onClick={goBack}>Back</button>
-        </div>
-    );
+        <input
+          type="number"
+          name="Costper_face"
+          placeholder="Cost per Face"
+          value={packageData.Costper_face}
+          onChange={handleChange}
+        /><br /><br />
+
+        <input
+          type="number"
+          name="Costper_kyc"
+          placeholder="Cost per KYC"
+          value={packageData.Costper_kyc}
+          onChange={handleChange}
+        /><br /><br />
+
+        {/* ✅ Checkbox for Customise */}
+        <label>
+          <input
+            type="checkbox"
+            name="Customise"
+            checked={packageData.Customise}
+            onChange={handleChange}
+          />
+          Customise Package
+        </label>
+
+        <br /><br />
+        <button type="submit">Create Package</button>
+      </form>
+      <button onClick={goBack}>Back</button>
+    </div>
+  );
 };
 
 export default AddPackage;

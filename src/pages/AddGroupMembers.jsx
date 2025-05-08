@@ -1,62 +1,62 @@
 import React, { useState, useEffect } from "react";
 import Select from "react-select";
 import * as XLSX from "xlsx";
+import axios from "axios";
+
+// const Group = require('../models/Group');
+
+const BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 const AddGroupMembers = () => {
   const [groups, setGroups] = useState([]);
   const [selectedGroup, setSelectedGroup] = useState(null);
-
-  
   const [admins, setAdmins] = useState([]);
   const [selectedAdmin, setSelectedAdmin] = useState(null);
   const [fileData, setFileData] = useState([]);
+  const [entryMode, setEntryMode] = useState("csv");
+
+  const [users, setUsers] = useState([
+    { name: "", phoneNumber: "", email: "", password: "" },
+  ]);
 
   useEffect(() => {
     fetchGroups();
   }, []);
 
-  // Fetch groups from API
   const fetchGroups = async () => {
     try {
-      const response = await fetch("http://localhost:1337/group/findAll",{
-        credentials:"include"
+      const response = await axios.get(`${BASE_URL}/group/findAll`, {
+        withCredentials: true,
       });
-      if (!response.ok) throw new Error("Failed to fetch groups");
-      const data = await response.json();
-      const groupOptions = data.map((group) => ({
+      const groupOptions = response.data.map((group) => ({
         value: group.GroupID,
         label: group.GroupName,
       }));
       setGroups(groupOptions);
     } catch (error) {
-      console.error("Error fetching groups", error);
+      console.error("Error fetching groupsff", error);
     }
   };
+  // console.log(fetchGroups());
+  
 
-  // Fetch admins & users when a group is selected
   const fetchUsers = async (groupId) => {
     try {
-      const response = await fetch(`http://localhost:1337/group-admins/groupadmins/${groupId}`,{
-         credentials:"include"
+      const response = await axios.get(`${BASE_URL}/group-admins/groupadmins/${groupId}`, {
+        withCredentials: true,
       });
-      if (!response.ok) throw new Error("Failed to fetch users");
-      const data = await response.json();
 
-      // Separate admins and users
-      const adminOptions = data.map((admin) => ({
-          value: admin.userid,
-          label: admin.name,
-        }));
+      const adminOptions = response.data.map((admin) => ({
+        value: admin.userid,
+        label: admin.name,
+      }));
 
-    
       setAdmins(adminOptions);
-     
     } catch (error) {
       console.error("Error fetching users", error);
     }
   };
 
-  // Handle group selection
   const handleGroupChange = (selectedOption) => {
     setSelectedGroup(selectedOption);
     setAdmins([]);
@@ -64,7 +64,6 @@ const AddGroupMembers = () => {
     fetchUsers(selectedOption.value);
   };
 
-  // Handle file upload
   const handleFileUpload = (event) => {
     const file = event.target.files[0];
     if (!file) return;
@@ -81,18 +80,61 @@ const AddGroupMembers = () => {
     reader.readAsArrayBuffer(file);
   };
 
-  // Handle form submission
-  const handleSubmit = async () => {
-    if (!selectedGroup) {
-      alert("Please select a group");
+  const handleSubmitcsv = async () => {
+    if (!selectedGroup || !selectedAdmin) {
+      alert("Please select a group and admin.");
       return;
     }
-    if (!selectedAdmin) {
-      alert("Please select an admin");
+
+    if (entryMode === "csv") {
+      if (fileData.length === 0) {
+        alert("Please upload an Excel file.");
+        return;
+      }
+
+      try {
+        const payload = {
+          groupId: selectedGroup.value,
+          adminId: selectedAdmin.value,
+          roleId: 3,
+          fileData,
+        };
+
+        const response = await axios.post(`${BASE_URL}/group-members/upload`, payload, {
+          withCredentials: true,
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+
+        if (response.status !== 200 && response.status !== 201) {
+          throw new Error("Failed to add users");
+        }
+        alert("File uploaded successfully!");
+        setFileData([]);
+        setAdmins([]);
+      } catch (error) {
+        console.error("Error uploading file", error);
+        alert("Failed to upload file.");
+      }
+    }
+  };
+
+  const handleSubmit = async (index) => {
+    if (!selectedGroup || !selectedAdmin) {
+      alert("Please select a group and admin.");
       return;
     }
-    if (fileData.length === 0) {
-      alert("Please upload an Excel file");
+
+    const user = users[index];
+
+    if (!user.phoneNumber && !user.email) {
+      alert("At least a phone number or email is required.");
+      return;
+    }
+
+    if (!user.password || user.password.length < 4) {
+      alert("Password must be at least 4 characters.");
       return;
     }
 
@@ -100,33 +142,65 @@ const AddGroupMembers = () => {
       const payload = {
         groupId: selectedGroup.value,
         adminId: selectedAdmin.value,
-        roleId: 3, // Group Members role
-        fileData,
+        roleId: 3,
+        fileData: [
+          {
+            name: user.name,
+            phone: user.phoneNumber,
+            email: user.email || null,
+            password: user.password,
+          },
+        ],
       };
-      console.log(payload);
 
-      const response = await fetch("http://localhost:1337/group-members/upload", {
-        method: "POST",
-        credentials: 'include',
+      const response = await axios.post(`${BASE_URL}/group-members/upload`, payload, {
+        withCredentials: true,
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(payload),
       });
 
-      if (!response.ok) throw new Error("Failed to upload file");
-      setFileData([]);
-      setAdmins([]);
-      alert("File uploaded successfully!");
+      if (response.status !== 200 && response.status !== 201) {
+        throw new Error("Failed to add user");
+      }
+
+      alert(`User ${user.name || ""} added successfully!`);
+
+      setUsers((prev) =>
+        prev.map((u, i) =>
+          i === index ? { name: "", phoneNumber: "", email: "", password: "" } : u
+        )
+      );
     } catch (error) {
-      console.error("Error uploading file", error);
-      alert("Failed to upload file.");
+      console.error("Error adding user", error);
+      alert(`Failed to add user ${user.name || ""}.`);
+    }
+  };
+
+  const handleUserChange = (index, field, value) => {
+    setUsers((prevUsers) =>
+      prevUsers.map((user, i) =>
+        i === index ? { ...user, [field]: value } : user
+      )
+    );
+  };
+
+  const handleAddUser = () => {
+    setUsers((prevUsers) => [
+      ...prevUsers,
+      { name: "", phoneNumber: "", email: "", password: "" },
+    ]);
+  };
+
+  const handleDeleteUser = (index) => {
+    if (users.length > 1) {
+      setUsers((prevUsers) => prevUsers.filter((_, i) => i !== index));
     }
   };
 
   return (
     <div className="upload-container">
-      <h2>Upload Excel File</h2>
+      <h2>Add Group Members</h2>
 
       <div>
         <label>Select Group:</label>
@@ -140,38 +214,124 @@ const AddGroupMembers = () => {
       </div>
 
       {selectedGroup && (
-        <>
-          <div>
-            <label>Select Admin:</label>
-            <Select
-              options={admins}
-              onChange={setSelectedAdmin}
-              value={selectedAdmin}
-              isSearchable
-              placeholder="Search & select an admin..."
-            />
-          </div>
-
-        </>
-      )}
-
-      <div>
-        <label>Upload Excel File:</label>
-        <input type="file" accept=".xlsx, .xls" onChange={handleFileUpload} />
-      </div>
-
-      {fileData.length > 0 && (
         <div>
-          <h3>Preview:</h3>
-          <ul>
-            {fileData.slice(0, 5).map((row, index) => (
-              <li key={index}>{JSON.stringify(row)}</li>
-            ))}
-          </ul>
+          <label>Select Admin:</label>
+          <Select
+            options={admins}
+            onChange={setSelectedAdmin}
+            value={selectedAdmin}
+            isSearchable
+            placeholder="Search & select an admin..."
+          />
         </div>
       )}
 
-      <button onClick={handleSubmit}>Submit</button>
+      <div style={{ marginTop: "1rem" }}>
+        <label>
+          <input
+            type="radio"
+            value="csv"
+            checked={entryMode === "csv"}
+            onChange={() => setEntryMode("csv")}
+          />
+          Upload CSV
+        </label>
+        <label style={{ marginLeft: "1rem" }}>
+          <input
+            type="radio"
+            value="manual"
+            checked={entryMode === "manual"}
+            onChange={() => setEntryMode("manual")}
+          />
+          Manual Entry
+        </label>
+      </div>
+
+      {entryMode === "csv" && (
+        <div>
+          <label>Upload Excel File:</label>
+          <input type="file" accept=".xlsx, .xls" onChange={handleFileUpload} />
+          <button onClick={handleSubmitcsv} style={{ marginTop: "1rem" }}>
+            Submit
+          </button>
+          {fileData.length > 0 && (
+            <div>
+              <h3>Preview:</h3>
+              <ul>
+                {fileData.slice(0, 5).map((row, index) => (
+                  <li key={index}>{JSON.stringify(row)}</li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </div>
+      )}
+
+      {entryMode === "manual" && (
+        <div style={{ marginTop: "1rem" }}>
+          {users.map((user, index) => (
+            <div
+              key={index}
+              style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "10px" }}
+            >
+              <input
+                type="text"
+                placeholder="Name"
+                value={user.name}
+                onChange={(e) => handleUserChange(index, "name", e.target.value)}
+              />
+              <input
+                type="text"
+                placeholder="Phone Number"
+                value={user.phoneNumber}
+                onChange={(e) => handleUserChange(index, "phoneNumber", e.target.value)}
+              />
+              <input
+                type="email"
+                placeholder="Email"
+                value={user.email}
+                onChange={(e) => handleUserChange(index, "email", e.target.value)}
+              />
+              <input
+                type="password"
+                placeholder="Password"
+                value={user.password}
+                onChange={(e) => handleUserChange(index, "password", e.target.value)}
+              />
+              <button
+                type="button"
+                onClick={() => handleDeleteUser(index)}
+                disabled={users.length <= 1}
+                style={{
+                  background: users.length <= 1 ? "gray" : "red",
+                  color: "white",
+                  border: "none",
+                  padding: "5px 10px",
+                  cursor: users.length <= 1 ? "not-allowed" : "pointer",
+                }}
+              >
+                Delete
+              </button>
+              <button
+                type="button"
+                onClick={() => handleSubmit(index)}
+                style={{
+                  background: "green",
+                  color: "white",
+                  border: "none",
+                  padding: "5px 10px",
+                  cursor: "pointer",
+                }}
+              >
+                Submit
+              </button>
+            </div>
+          ))}
+          <button type="button" onClick={handleAddUser} style={{ marginTop: "1rem" }}>
+            + Add User
+          </button>
+        </div>
+      )}
     </div>
   );
 };

@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './Register.css';
+const BASE_URL = import.meta.env.VITE_API_BASE_URL;
+import axios from 'axios';
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -31,18 +33,16 @@ const Register = () => {
 
   // Fetch states on component mount
   useEffect(() => {
-    fetch('http://localhost:1337/state/stateAll')
-      .then((res) => res.json())
-      .then((data) => setStates(data))
+    axios.get(`${BASE_URL}/state/stateAll`)
+      .then((res) => setStates(res.data))
       .catch((err) => console.error('Error fetching states:', err));
   }, []);
 
   // Fetch districts when state is selected
   useEffect(() => {
     if (formData.state) {
-      fetch(`http://localhost:1337/districts/state/${formData.state.StateID}`)
-        .then((res) => res.json())
-        .then((data) => setDistricts(data))
+      axios.get(`${BASE_URL}/districts/state/${formData.state.StateID}`)
+        .then((res) => setDistricts(res.data))
         .catch((err) => console.error('Error fetching districts:', err));
     } else {
       setDistricts([]);
@@ -53,9 +53,9 @@ const Register = () => {
   // Fetch taluks when district is selected
   useEffect(() => {
     if (formData.district) {
-      fetch(`http://localhost:1337/taluks/districts/${formData.district.DistrictID}`)
-        .then((res) => res.json())
-        .then((data) => setTaluks(data))
+      axios
+        .get(`${BASE_URL}/taluks/districts/${formData.district.DistrictID}`)
+        .then((res) => setTaluks(res.data))
         .catch((err) => console.error('Error fetching taluks:', err));
     } else {
       setTaluks([]);
@@ -114,19 +114,27 @@ const Register = () => {
   // Handle phone number check and OTP send
   const handlePhoneNumberCheck = async () => {
     try {
-      const response = await fetch(`http://localhost:1337/pendingOfficers/checkPhoneNumberOtPVerify/${phoneNumber}`);
-      const result = await response.json();
+      const response = await axios.get(
+        `${BASE_URL}/pendingOfficers/checkPhoneNumberOtPVerify/${phoneNumber}`,
+        {
+          withCredentials: true, // to include cookies/session info
+        }
+      );
+      const result = await response.data;
 
-      if (response.ok && result.exists) {
+      if (response.status===200 && result.exists) {
         setShowOtpInput(true);
         // Call API to send OTP
-        await fetch('http://localhost:1337/sendOtp', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ phoneNumber }),
-        });
+        await axios.post(
+          `${BASE_URL}/sendOtp`,
+          { phoneNumber },
+          {
+            withCredentials: true, // to include cookies/session info
+            headers: {
+              'Content-Type': 'application/json', // optional, Axios sets this by default
+            },
+          }
+        );
       } else {
         setError('Phone number does not exist.');
       }
@@ -139,17 +147,19 @@ const Register = () => {
   // Handle OTP verification
   const handleOtpVerification = async () => {
     try {
-      const response = await fetch('http://localhost:1337/verifyOtp', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ phoneNumber, otp }),
-      });
+      const response = await axios.post(
+        `${BASE_URL}/verifyOtp`,
+        { phoneNumber, otp },
+        {
+          withCredentials: true, // to include cookies/session info
+          headers: {
+            'Content-Type': 'application/json', // optional, Axios sets this by default
+          },
+        }
+      );
+      const result = await response.data;
 
-      const result = await response.json();
-
-      if (response.ok && result.verified) {
+      if (response.status===200 && result.verified) {
         setShowForm(true);
       } else {
         setError('Invalid OTP.');
@@ -166,17 +176,18 @@ const Register = () => {
 
     try {
       // Check if email already exists
-      const checkResponse = await fetch('http://localhost:1337/user/checkemail', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email: formData.email }),
-      });
+      const checkResponse = await axios.post(
+        `${BASE_URL}/user/checkemail`,
+        { email: formData.email },
+        {
+          headers: {
+            'Content-Type': 'application/json', // optional, Axios sets this by default
+          },
+        }
+      );
+      const checkResult = await checkResponse.data;
 
-      const checkResult = await checkResponse.json();
-
-      if (checkResponse.ok && checkResult.exists) {
+      if (checkResponse.status===200 && checkResult.exists) {
         setError('Email already exists. Please use a different email.');
         return;
       }
@@ -184,20 +195,23 @@ const Register = () => {
       // Proceed with registration
       const submissionData = {
         ...formData,
-        state: formData.state.StateName,
-        district: formData.district.DistrictName,
-        taluk: formData.taluk.TalukName,
+        state: formData.state.StateID,
+        district: formData.district.DistrictID,
+        taluk: formData.taluk.TalukID,
       };
 
-      const response = await fetch('http://localhost:1337/user/create', {
-        method: 'POST',
-        credentials: 'include',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(submissionData),
-      });
-
-      const result = await response.json();
-      if (response.ok) {
+      const response = await axios.post(
+        `${BASE_URL}/user/create`,
+        submissionData,
+        {
+          withCredentials: true, // to include cookies/session info
+          headers: {
+            'Content-Type': 'application/json', // optional, Axios sets this by default
+          },
+        }
+      );
+      const result = await response.data;
+      if (response.status===200) {
         alert('Registration Successful! Please login.');
         window.location.href = '/';
       } else {

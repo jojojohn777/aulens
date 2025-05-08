@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './Register.css';
+const BASE_URL = import.meta.env.VITE_API_BASE_URL;
+import axios from 'axios';
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -27,18 +29,16 @@ const Register = () => {
   // Fetch states on component mount
 
   useEffect(() => {
-    fetch('http://localhost:1337/state/stateAll') //middleware not need
-      .then((res) => res.json())
-      .then((data) => setStates(data))
+    axios.get(`${BASE_URL}/state/stateAll`)
+      .then((res) => setStates(res.data))
       .catch((err) => console.error('Error fetching states:', err));
   }, []);
 
   // Fetch districts when state is selected
   useEffect(() => {
     if (formData.state) {
-      fetch(`http://localhost:1337/districts/state/${formData.state.StateID}`) //middleware not need
-        .then((res) => res.json())
-        .then((data) => setDistricts(data))
+      axios.get(`${BASE_URL}/districts/state/${formData.state.StateID}`)
+        .then((res) => setDistricts(res.data))
         .catch((err) => console.error('Error fetching districts:', err));
     } else {
       setDistricts([]);
@@ -49,9 +49,9 @@ const Register = () => {
   // Fetch taluks when district is selected
   useEffect(() => {
     if (formData.district) {
-      fetch(`http://localhost:1337/taluks/districts/${formData.district.DistrictID}`)
-        .then((res) => res.json())
-        .then((data) => setTaluks(data))
+      axios
+        .get(`${BASE_URL}/taluks/districts/${formData.district.DistrictID}`)
+        .then((res) => setTaluks(res.data))
         .catch((err) => console.error('Error fetching taluks:', err));
     } else {
       setTaluks([]);
@@ -107,18 +107,21 @@ const Register = () => {
     e.preventDefault();
 
     try {
-      // Check if email already exists
-      const checkResponse = await fetch('http://localhost:1337/user/checkemail', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email: formData.email }),
-      });
+      // Check if email already exists 
 
-      const checkResult = await checkResponse.json();
+      const checkResponse = await axios.post(
+        `${BASE_URL}/user/checkemail`,
+        { email: formData.email },
+        {
+          headers: {
+            'Content-Type': 'application/json', // optional with Axios
+          },
+        }
+      );
 
-      if (checkResponse.ok && checkResult.exists) {
+      const checkResult = await checkResponse.data;
+
+      if (checkResponse.status===200 && checkResult.exists) {
         setError('Email already exists. Please use a different email.');
         return;
       }
@@ -128,15 +131,19 @@ const Register = () => {
         ...formData, // Already contains state, district, taluk as IDs
       };
 
-      const response = await fetch('http://localhost:1337/user/create', {
-        method: 'POST',
-        credentials: 'include',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(submissionData),
-      });
+      const response = await axios.post(
+        `${BASE_URL}/user/create`,
+        submissionData,
+        {
+          withCredentials: true, // to include cookies/session info
+          headers: {
+            'Content-Type': 'application/json', // optional, Axios sets this by default
+          },
+        }
+      );
 
-      const result = await response.json();
-      if (response.ok) {
+      const result = await response.data;
+      if (response.status===200) {
         alert('Registration Successful! Please login.');
         window.location.href = '/';
       } else {

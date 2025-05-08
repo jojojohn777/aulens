@@ -1,0 +1,31 @@
+.validation-container {
+    padding: 20px;
+    background: #f5f5f5;
+    border-radius: 12px;
+    max-width: 400px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  
+  .button-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    margin-top: 16px;
+  }
+  
+  .button-grid button {
+    padding: 10px;
+    font-size: 16px;
+    border: none;
+    border-radius: 8px;
+    background-color: #4caf50;
+    color: white;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+  
+  .button-grid button:hover {
+    background-color: #45a049;
+  }
+  

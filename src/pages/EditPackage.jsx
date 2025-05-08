@@ -1,72 +1,99 @@
 import React, { useState } from "react";
+const BASE_URL = import.meta.env.VITE_API_BASE_URL;
+import axios from 'axios';
 
 const EditPackage = ({ goBack, packageData }) => {
-    const [formData, setFormData] = useState({ ...packageData });
+  const [formData, setFormData] = useState({ ...packageData });
 
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setFormData({ ...formData, [name]: value ? parseFloat(value) : "" });
+  const handleChange = (e) => {
+    const { name, value, type, checked } = e.target;
+    if (type === "checkbox") {
+      setFormData({ ...formData, [name]: checked });
+    } else {
+      setFormData({ ...formData, [name]: value ? parseFloat(value) : "" });
+    }
+  };
+
+  console.log(formData);
+
+  const totalCost = (formData.face_Instance || 0) * (formData.Costper_face || 0) +
+                    (formData.kyc_instance || 0) * (formData.Costper_kyc || 0);
+
+  const finalPrice = totalCost - (totalCost * (formData.Discount || 0)) / 100;
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const payload = {
+      PackageName: formData.PackageName,
+      Description: formData.Description,
+      Total_Cost: totalCost.toFixed(2),
+      Validity: formData.Validity,
+      face_Instance: formData.face_Instance,
+      kyc_instance: formData.kyc_instance,
+      Discount: formData.Discount,
+      Costper_face: formData.Costper_face,
+      Costper_kyc: formData.Costper_kyc,
+      Customise: formData.Customise
     };
 
-    const totalCost = formData.Instance * formData.Costper; // Total cost calculation
-    const finalPrice = totalCost - (totalCost * formData.Discount) / 100; // Applying discount
+    axios.put(
+      `${BASE_URL}/package/update/${formData.Packageid}`,
+      payload,
+      {
+        withCredentials: true,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }
+    )
+    .then(() => {
+      alert("Package updated successfully!");
+      goBack();
+    })
+    .catch((err) => console.error("Error updating package:", err));
+  };
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        const payload = {
-            PackageName: formData.PackageName,
-            Description: formData.Description,
-            Costper: formData.Costper,
-            Cost: finalPrice.toFixed(2),  // Ensure 2 decimal places
-            Validity: formData.Validity,
-            Instance: formData.Instance,
-            Discount: formData.Discount
-        };
+  return (
+    <div>
+      <h2>Edit Package</h2>
+      <form onSubmit={handleSubmit}>
+        <label>Package Name:</label>
+        <input type="text" name="PackageName" value={formData.PackageName} onChange={handleChange} required />
 
-        fetch(`http://localhost:1337/package/update/${formData.PackageId}`, {
-            method: "PUT",
-            credentials: "include",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(payload),
-        })
-        .then((res) => res.json())
-        .then(() => {
-            alert("Package updated successfully!");
-            goBack();
-        })
-        .catch((err) => console.error("Error updating package:", err));
-    };
+        <label>Description:</label>
+        <textarea name="Description" value={formData.Description} onChange={handleChange} />
 
-    return (
-        <div>
-            <h2>Edit Package</h2>
-            <form onSubmit={handleSubmit}>
-                <label>Package Name:</label>
-                <input type="text" name="PackageName" value={formData.PackageName} onChange={handleChange} required />
+        <label>Validity (Days):</label>
+        <input type="number" name="Validity" value={formData.Validity} min="1" onChange={handleChange} required />
 
-                <label>Description:</label>
-                <textarea name="Description" value={formData.Description} onChange={handleChange} />
+        <label>Face Instances:</label>
+        <input type="number" name="face_Instance" value={formData.face_Instance} min="0" onChange={handleChange} />
 
-                <label>Validity (Days):</label>
-                <input type="number" name="Validity" value={formData.Validity} min="1" onChange={handleChange} required />
+        <label>Cost per Face:</label>
+        <input type="number" name="Costper_face" value={formData.Costper_face} min="0" step="0.01" onChange={handleChange} />
 
-                <label>Instances:</label>
-                <input type="number" name="Instance" value={formData.Instance} min="1" onChange={handleChange} required />
+        <label>KYC Instances:</label>
+        <input type="number" name="kyc_instance" value={formData.kyc_instance} min="0" onChange={handleChange} />
 
-                <label>Cost per Instance:</label>
-                <input type="number" name="Costper" value={formData.Costper} min="0" step="0.01" onChange={handleChange} required />
+        <label>Cost per KYC:</label>
+        <input type="number" name="Costper_kyc" value={formData.Costper_kyc} min="0" step="0.01" onChange={handleChange} />
 
-                <label>Discount %:</label>
-                <input type="number" name="Discount" value={formData.Discount} min="0" max="100" step="0.01" onChange={handleChange} required />
+        <label>Discount %:</label>
+        <input type="number" name="Discount" value={formData.Discount} min="0" max="100" step="0.01" onChange={handleChange} />
 
-                <div><strong>Total Cost:</strong> ${totalCost.toFixed(2)}</div>
-                <div><strong>Final Price (After Discount):</strong> ${finalPrice.toFixed(2)}</div>
+        <label>
+          <input type="checkbox" name="Customise" checked={formData.Customise} onChange={handleChange} />
+          Customise
+        </label>
 
-                <button type="submit">Update Package</button>
-            </form>
-            <button onClick={goBack}>Back</button>
-        </div>
-    );
+        <div><strong>Total Cost:</strong> ${totalCost.toFixed(2)}</div>
+        <div><strong>Final Price (After Discount):</strong> ${finalPrice.toFixed(2)}</div>
+
+        <button type="submit">Update Package</button>
+      </form>
+      <button onClick={goBack}>Back</button>
+    </div>
+  );
 };
 
 export default EditPackage;

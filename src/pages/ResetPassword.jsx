@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
+const BASE_URL = import.meta.env.VITE_API_BASE_URL;
+import axios from 'axios';
 
 const ResetPassword = () => {
   const [searchParams] = useSearchParams();
@@ -21,14 +23,17 @@ const ResetPassword = () => {
 
     setLoading(true);
     try {
-      const res = await fetch('http://localhost:1337/reset-password', {
-        method: 'POST',
-        credentials: 'include',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ password, token }),
-      });
-
-      const data = await res.json();
+      const res = await axios.post(
+        `${BASE_URL}/reset-password`,
+        { password, token },
+        {
+          withCredentials: true,
+          headers: {
+            'Content-Type': 'application/json' // optional, Axios sets this automatically
+          }
+        }
+      );
+      const data = await res.data;
       if (data.success) {
         setMessage('✅ Password updated successfully. You can now log in.');
         alert(' Password updated successfully! Please login.');
