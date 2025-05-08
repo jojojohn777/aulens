@@ -220,13 +220,13 @@ const UploadFraud = ({ handleShowFraudCustomerList }) => {
       {!selectedFile && (
         <div className=" main-section-hero   upload-photo-container">
           <div className="scan-photo-mob">
-            <h1>Upload picture</h1>
-            <p>
+            <h1>Upload picture</h1> <br />
+            <p className="mal">
               താങ്കളുടെ കസ്റ്റമർ വ്യാജമോ മോഷണത്തിലൂടെ ലഭിച്ചോ ആയ സ്വർണ്ണം
               പണയംവയ്ക്കാൻ ശ്രമിച്ചിട്ടുണ്ടെങ്കിൽ, അവരുടെ ഫോട്ടോ അപ്‌ലോഡ്
               ചെയ്യുക.
             </p>
-            <p>
+            <p className="mal">
               താങ്കൾ അപ്‌ലോഡ് ചെയ്ത ഫോട്ടോ ALPHA ഡാറ്റാബേസിൽ സേവ്
               ചെയ്യപ്പെടും.മറ്റൊരു gold-based lender ALPHA ഉപയോഗിച്ച് നിങ്ങൾ
               അപ്‌ലോഡ് ചെയ്ത ഫോട്ടോ തിരിച്ചറിയുകയാണെങ്കിൽ, നിങ്ങൾക്ക് അറിയിപ്പ്
@@ -237,24 +237,25 @@ const UploadFraud = ({ handleShowFraudCustomerList }) => {
           </div>
 
           <div className="upload-photo-form">
-            <div>
-              <ul className="guide-list">
+            <div className="upload-photo-form-left">
+              <ol className="guide-list">
                 <li>
-                  1.<span className="color-green">"Upload Photo"</span> എന്ന
+                  <span className="color-green">"Upload Photo"</span> എന്ന
                   ബട്ടണിൽ ക്ലിക്ക് ചെയ്യുക
                 </li>
-                <li>2.കമ്പ്യൂട്ടറിലെ ഫയലുകൾ തുറക്കപ്പെടും</li>
+                <li>കമ്പ്യൂട്ടറിലെ ഫയലുകൾ തുറക്കപ്പെടും</li>
                 <li>
-                  3.അപ്‌ലോഡ് ചെയ്യാൻ ആഗ്രഹിക്കുന്ന{" "}
+                  അപ്‌ലോഡ് ചെയ്യാൻ ആഗ്രഹിക്കുന്ന{" "}
                   <span className="color-green">ചിത്രം തിരഞ്ഞെടുക്കുക</span>
                 </li>
                 <li>
-                  4.<span className="color-green">Open ക്ലിക്ക്</span> ചെയ്യുക
+                  <span className="color-green">Open ക്ലിക്ക്</span> ചെയ്യുക
                 </li>
-              </ul>
+              </ol>
             </div>
             {/* Upload Button (from Uiverse.io by csemszepp) */}
-            <label htmlFor="file" className="custum-file-upload">
+            <div className="upload-photo-form-right">
+            <label htmlFor="file" className="custum-file-upload cs-w">
               <div className="fraud-list-controls">
                 <h5>{result}</h5>
                 <button onClick={handleShowFraudCustomerList}>View/Edit</button>
@@ -282,10 +283,11 @@ const UploadFraud = ({ handleShowFraudCustomerList }) => {
                 onChange={handleFileChange}
               />
             </label>
+            </div>
           </div>
-          <div>
-            ഒരു ഫോട്ടോ തിരുത്തുകയോ നീക്കം ചെയ്യുകയോ വേണമെങ്കിൽ, Edit/Delete
-            ഐക്കണിൽ ക്ലിക്ക് ചെയ്യുക. 
+          <div className="mal">
+          ഒരു ഫോട്ടോ തിരുത്തുകയോ നീക്കം ചെയ്യുകയോ വേണമെങ്കിൽ, Edit/Delete
+            ഐക്കണിൽ ക്ലിക്ക് ചെയ്യുക.
           </div>
         </div>
       )}

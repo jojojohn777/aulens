@@ -26,7 +26,7 @@ export default function HeaderComponent({
           <nav className="header__nav">
             <ul className="nav__list">
               <li className="nav__item">
-                <button className="nav__link " onClick={handleHomeButton}>
+                <button className="nav__link  scan-btn-header" onClick={handleHomeButton}>
                   Scan photo
                 </button>
               </li>

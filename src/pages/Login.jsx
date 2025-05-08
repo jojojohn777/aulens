@@ -166,7 +166,7 @@ const Login = () => {
           <>
             <div className="main-login">
               <section className="main-section">
-                <div className="container  main-section-hero mar-sec sec">
+                <div className="container  main-section-hero mar-sec sec logwithcont">
                   <div>
                     <p className="mal" lang="ml">
                       ALPHA ഒരു AI-ആധാരിതമായ മുഖം തിരിച്ചറിയുന്ന പ്ലാറ്റ്ഫോമാണ്,
@@ -398,16 +398,16 @@ const Login = () => {
 
               <section className="scan-photo-section" id="scan-photo">
                 <div className="container sec ">
-                  <div className="main-section-hero last-sec sec">
+                  <div className="yearly-sub last-sec sec">
                     <div className="scan-photo-mob">
-                      <h1 className="mal primary-headings">
+                      <h1 className="mal primary-headings green-text">
                         വാർഷിക സബ്സ്ക്രിപ്ഷൻ
                       </h1>
                       <p className="mal">
                         എല്ലാ gold-based lenders-നും അനുയോജ്യമായതും വിലകുറഞ്ഞതും
                       </p>
                       <br />
-                      <h2 className="mal primary-headings">
+                      <h2 className="mal primary-headings green-text">
                         ആദ്യ 3 മാസങ്ങൾ – സൗജന്യ ട്രയൽ
                       </h2>
                       <ul style={{ marginLeft: "20px" }}>

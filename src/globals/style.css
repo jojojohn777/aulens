@@ -42,6 +42,7 @@ body {
 /* ========== Header ========== */
 /* Make header fixed */
 .header {
+ 
   background-color: var(--bg-header);
   border-bottom: 1px solid var(--border-color);
   position: fixed;
@@ -49,6 +50,9 @@ body {
   left: 0;
   width: 100%;
   z-index: 1000;
+}
+.header li{
+  padding-bottom: 0px !important;
 }
 
 /* Stick mobile menu just below header */
@@ -286,10 +290,12 @@ body {
   width: 90%;
   line-height: 30px;
 }
-
+.cs-w{
+  width: 460px !important;
+}
 .custum-file-upload {
-  height: 290px;
-  width: 460px;
+  height: 250px;
+  width: 360px;
   display: flex;
   flex-direction: column;
   align-items: space-between;
@@ -363,7 +369,7 @@ body {
 }
 
 .kyc-section {
-  height: 90vh;
+  height: 100%;
 }
 
 .left .e {
@@ -535,7 +541,9 @@ body {
   .scan-photo-mob {
     padding-bottom: 30px;
   }
-
+  .cs-w{
+    width: 100% !important;
+  }
   .container {
     padding: 20px;
   }

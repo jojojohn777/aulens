@@ -214,19 +214,32 @@ ul {
   .form-container {
     max-width: 400px;
   }
-  width: 100%;
-  padding: unset;
-  display: flex;
-  justify-content: center;
-  align-content: center;
-  align-items: center;
-  gap: 10px;
+ 
+}
+.guide-list{
+  list-style: block !important;
+}
+.guide-list li{
+  width: 100% !important;
 }
 
 .upload-photo-container .upload-photo-form {
+
+  width: 100%;
+  padding: unset;
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+  align-items: center;
+  gap: 10px;
   /* max-width: 854.5px; */
 }
-
+.upload-photo-container .upload-photo-form-left{
+  flex: 1 1 50%;
+}
+.upload-photo-container .upload-photo-form-right{
+  flex: 1 1 45%;
+}
 .main-section-hero {
   & h1 {
     font-size: 32px !important;

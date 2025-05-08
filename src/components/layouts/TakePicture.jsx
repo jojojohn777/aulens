@@ -17,19 +17,20 @@ export default function TakePicture({
   return (
     <>
       <section className="main-section">
-        <div className="container  main-section-hero">
-          <h1 className="text-bold">സ്വര്‍ണം പണയമായി എടുക്കുന്ന സമയത്ത്</h1>
-          <div className="d-flex flex-row  align-items-center justify-content-center">
-            <div className="white-border">
+        <div className="container   ">
+          <h1 className="text-bold mal gol green-text">സ്വര്‍ണം പണയമായി എടുക്കുന്ന സമയത്ത്</h1> <br />
+          <div className="d-flex flex-row  align-items-center gold-page-sec">
+            <div className="gold-page-sec-p">
               {/* <h1>AuLens</h1> */}
-              <p>
+              <p className="mal">
                 1)നിങ്ങളുടെ അടുത്ത് പണയം വയ്ക്കാൻ വന്ന വ്വ്യക്തിയുടെ മുഖം
                 വ്യക്തമായി കാണുന്ന രീതിയിൽ ഫോട്ടോ എടുക്കുക, <span className="color-green">
                    Press on "Take
                   picture"
                 </span>
               </p>
-              <p>
+              <br /><br />
+              <p className="mal">
                 {" "}
                 2)കമ്പ്യൂട്ടറിൽ നിന്ന് ഫോട്ടോ അപ്‌ലോഡ് ചെയ്ത് ഡാറ്റാബേസുമായി
                 താരതമ്യപ്പെടുത്തണമെന്നുണ്ടെങ്കിൽ <span className="color-green">“Scan picture” അമർത്തുക.</span> അപ്പോൾ
@@ -126,9 +127,9 @@ export default function TakePicture({
                 )}
               </div>
             </div>
-            <div className="white-border">  
+            <div className="gold-page-sec-p">  
               {/* <h1>AuLens</h1> */}
-              <p>
+              <p className="mal">
                 3). ഡാറ്റാബേസുമായി താരതമ്യം ചെയ്യും നിങ്ങൾ എടുത്ത ഫോട്ടോ,
                 gold-based lenders <span className="color-green">
                   റിപ്പോർട്ട് ചെയ്ത്, ALPHA ഡാറ്റാബേസിൽ
@@ -136,7 +137,7 @@ export default function TakePicture({
                 </span> വ്യാജമോ മോഷണത്തിലൂടെ ലഭിച്ച സ്വർണ്ണം
                 പണയംവച്ചവരുടെ ഫോട്ടോകളുമായി താരതമ്യപ്പെടുത്തപ്പെടും..
               </p>
-              <p>
+              <p className="mal">
                 4). <span className="color-green">മാച്ച് കിട്ടിയാൽ അറിയിപ്പ് ലഭിക്കും മാച്ച് കിട്ടിയാൽ,</span>
                 നിങ്ങൾക്കും ആ <span className="color-green">ചിത്രം അപ്‌ലോഡ് ചെയ്ത </span>ലെൻഡറിനും അറിയിപ്പ്
                 ലഭിക്കും. അതുപോലെ, ആ ചിത്രമെടുത്ത <span className="color-green">
@@ -147,9 +148,9 @@ export default function TakePicture({
               </p>
             </div>
           </div>
-          <div className="white-border">
+          <div className=" gold-page-sec-p mt-5">
             {/* <h1>AuLens</h1> */}
-            <p>
+            <p className="mal">
               5). മാച്ച് ലഭിക്കാത്തപക്ഷം ഒരു മാച്ച് ലഭിക്കാത്തപക്ഷം, "Face not
               found” എന്ന് കാണിക്കും. അതിനുശേഷം, നിങ്ങൾക്ക് സാധാരണപോലെ ലെൻഡിംഗ്
               തുടരാം.
