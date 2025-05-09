@@ -39,9 +39,12 @@ const Validation = () => {
             <h1 className="e">e-KYC</h1>
           </div>
 
-          <div className="right ">
-            <div className="e-kyc-cards">
-              <div className="kyc-card">
+        
+          <div>
+            <div className="e-kyc-cards-1">
+
+
+            <div className="kyc-card">
                 <img
                   src="src\assets\images\voter.jpg"
                   alt="Voter ID"
@@ -55,7 +58,8 @@ const Validation = () => {
                 </button>
               </div>
 
-              <div className="kyc-card">
+
+            <div className="kyc-card">
                 <img
                   src="src\assets\images\drivingLicense.png"
                   alt="Driving License"
@@ -70,40 +74,50 @@ const Validation = () => {
               </div>
 
               
-            </div>
-            <div className="e-kyc-cards">
-             
 
-              <div className="kyc-card">
-                <img
-                  src="src\assets\images\adhaar.png"
-                  alt="Aadhar"
-                  className="kyc-img"
-                />
-                <button
-                  className="btn btn--primary"
-                  onClick={() => handleValidate("Aadhar")}
-                >
-                  Validate Aadhar
-                </button>
-              </div>
+              
 
-              <div className="kyc-card">
-                <img
-                  src="src\assets\images\pass.png"
-                  alt="Passport"
-                  className="kyc-img"
-                />
-                <button
-                  className="btn btn--primary"
-                  onClick={() => handleValidate("Passport")}
-                >
-                  Validate Passport
-                </button>
-              </div>
+              
             </div>
+
+            <div className="e-kyc-cards-1">
+
+
+
+
+
+  <div className="kyc-card">
+    <img
+      src="src\assets\images\adhaar.png"
+      alt="Aadhar"
+      className="kyc-img"
+    />
+    <button
+      className="btn btn--primary"
+      onClick={() => handleValidate("Aadhar")}
+    >
+      Validate Aadhar
+    </button>
+  </div>
+
+  
+
+  <div className="kyc-card">
+    <img
+      src="src\assets\images\pass.png"
+      alt="Passport"
+      className="kyc-img"
+    />
+    <button
+      className="btn btn--primary"
+      onClick={() => handleValidate("Passport")}
+    >
+      Validate Passport
+    </button>
+  </div>
+</div>
           </div>
-        </div>
+          </div>
       </section>
     </>
   ) : (

@@ -16,6 +16,14 @@
 
   height: 100% !important;
 }
+.img-drops{
+  margin-top: 60px ;
+}
+.bottom-greenIn{
+  
+  width: 100% !important;
+  font-size: 20px !important;
+}
 .sub-cards {
  
   padding: 10px !important;
@@ -45,32 +53,101 @@ li{
   font-family: "Noto Sans Malayalam", sans-serif !important;
 }
 .yearly-sub{
-  display: flex
-  ;
-          flex-direction: row;
-          align-items: center;
-          justify-content: space-evenly;
-          padding-top: 60px !important;
-          padding-bottom: 60px !important;
-          gap: 60px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+  padding-top: 60px !important;
+  padding-bottom: 60px !important;
+  gap: 60px;
 }
-
+.flexing-cards{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 20px;
+}
 .e-kyc-cards {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 2fr));
+  grid-template-columns: repeat(auto-fit, minmax(250px, 3fr));
   gap: 20px;
 }
 
 .kyc-card {
+  width: 250px;
   display: flex;
 flex-direction: column;
 justify-content: center;
-  gap: 30px;
+  
   border-radius: 10px;
   box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-  padding: 20px;
+  padding: 5px;
   text-align: center;
   transition: transform 0.2s ease;
+}
+.e-kyc-cards-1{
+  display: flex;
+  flex-direction: row;
+}
+.kyc-card1 {
+  display: flex;
+flex-direction: row !important;
+justify-content: center;
+  gap: 30px;
+  border-radius: 10px;
+  text-align: left;
+}
+.kyc-agreement {
+  margin: 1rem 0;
+  font-family: sans-serif;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.kyc-checkbox-label {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  cursor: pointer;
+  user-select: none;
+}
+
+.kyc-checkbox-input {
+  display: none;
+}
+
+.kyc-custom-checkbox {
+  width: 20px;
+  height: 20px;
+  border: 2px solid #ffffff;
+  border-radius: 4px;
+  position: relative;
+  margin-top: 4px;
+  flex-shrink: 0;
+}
+
+
+/* ... */
+
+
+/* .... */
+
+.kyc-checkbox-input:checked + .kyc-custom-checkbox::after {
+  content: '';
+  position: absolute;
+  left: 5px;
+  top: 1px;
+  width: 6px;
+  height: 12px;
+  border: solid #ffffff;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+.kyc-agreement-text {
+  color: #ffffff;
+  font-size: 14px !important;
+  line-height: 25px !important;
 }
 
 .kyc-card:hover {
@@ -78,8 +155,9 @@ justify-content: center;
 }
 
 .kyc-img {
-  width: 80px;
-  height: auto;
+
+  width: 100%;
+  height: 150px !important;
   margin-bottom: 15px;
 }
 
@@ -95,9 +173,14 @@ justify-content: center;
   font-weight: 600;
 }
 .gold-page-sec-p{
+
   border: 1px solid #fff;
   padding: 20px !important;
   border-radius: 30px;
+}
+.gold-page-sec-p1 p{
+  text-align: center !important;
+ 
 }
 
 .camera-wrapper {

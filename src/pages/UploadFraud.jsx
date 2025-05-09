@@ -102,32 +102,32 @@ const UploadFraud = ({ handleShowFraudCustomerList }) => {
     <section className="scan-photo-section" id="scan-photo">
       {/* Form Section */}
       {selectedFile && (
-        <div className=" main-section-hero   upload-photo-container">
-          <section className="form-section upload-photo-form">
+        <div className=" main-section-hero   upload-photo-container ">
+          <section className="form-section upload-photo-form ">
             <div className="align-self-normal">
               <ul className="guide-list">
                 <li>
-                  1. വ്യക്തിയുടെ വിശദവിവരങ്ങൾ ഫീൽഡുകളിൽ{" "}
+                   വ്യക്തിയുടെ വിശദവിവരങ്ങൾ ഫീൽഡുകളിൽ{" "}
                   <span className="color-green">ടൈപ്പ് ചെയ്യുക</span>
                 </li>
                 <li>
-                  2. തട്ടിപ്പിനെക്കുറിച്ചുള്ള{" "}
+                  തട്ടിപ്പിനെക്കുറിച്ചുള്ള{" "}
                   <span className="color-green">കുറിപ്പ് ചേർക്കുക</span>
                 </li>
                 <li>
-                  3.
+                
                   <span className="color-green">
                     ആ വ്യക്തിയെ കുറിച്ചുള്ള വിവരങ്ങൾ നൽകാതെയും നിങ്ങൾക്ക് ഫോട്ടോ
                     അപ്‌ലോഡ് ചെയ്യാൻ കഴിയും.
                   </span>
                 </li>
                 <li>
-                  4. <span className="color-green">നിബന്ധനകൾ വായിച്ചു </span>
+                 <span className="color-green">നിബന്ധനകൾ വായിച്ചു </span>
                   സമ്മതമാണെങ്കിൽ ബോക്‌സിൽ{" "}
                   <span className="color-green">ടിക്ക് ചെയ്യുക</span>.
                 </li>
                 <li>
-                  5.<span className="color-green">Submit</span> ക്ലിക്ക്
+                <span className="color-green">Submit</span> ക്ലിക്ക്
                   ചെയ്യുക
                 </li>
               </ul>
@@ -184,19 +184,21 @@ const UploadFraud = ({ handleShowFraudCustomerList }) => {
                   required
                 ></textarea>
 
-                <div className="checkbox">
-                  <input
-                    type="checkbox"
-                    id="apkba"
-                    checked={isApkbaChecked}
-                    onChange={(e) => setIsApkbaChecked(e.target.checked)}
-                  />
-                  <label htmlFor="apkba"> ഞാൻ നിബന്ധനകളും വ്യവസ്ഥകളും വായിച്ച്
-            സമ്മതിച്ചിരിക്കുന്നു. ഈ ഫോട്ടോ, മുക്കുപണ്ടം ജാമ്യമായി നൽകിയോ നൽകാൻ
-            ശ്രമിച്ചയാളുടേതാണ്. മറ്റുള്ള gold-based lenders തിരിച്ചറിയാനും
-            അറിയിപ്പുകൾ ലഭിക്കാനുമാണ് ഇത് അപ്‌ലോഡ് ചെയ്യുന്നത്.</label>
-            
-                </div>
+<div className="kyc-agreement ">
+  <label className="kyc-checkbox-label">
+    <input
+      type="checkbox"
+      id="apkba"
+      checked={isApkbaChecked}
+      onChange={(e) => setIsApkbaChecked(e.target.checked)}
+      className="kyc-checkbox-input"
+    />
+    <span className="kyc-custom-checkbox"></span>
+    <span className="kyc-agreement-text mal">
+      ഞാൻ നിബന്ധനകളും വ്യവസ്ഥകളും വായിച്ചും സമ്മതിച്ചിരിക്കുന്നു. ഈ ഫോട്ടോ, മുക്കുപണ്ടം ജാമ്യമായി നൽകിയോ നൽകാൻ ശ്രമിച്ചയാളുടേതാണ്. മറ്റുള്ള gold-based lenders തിരിച്ചറിയാനും അറിയിപ്പുകൾ ലഭിക്കാനുമാണ് ഇത് അപ്‌ലോഡ് ചെയ്യുന്നത്.
+    </span>
+  </label>
+</div>
 
                 <button className="btn btn--primary tak-btn" type="submit">
                   Submit
@@ -227,34 +229,18 @@ const UploadFraud = ({ handleShowFraudCustomerList }) => {
               ചെയ്യുക.
             </p>
             <p className="mal">
-              താങ്കൾ അപ്‌ലോഡ് ചെയ്ത ഫോട്ടോ ALPHA ഡാറ്റാബേസിൽ സേവ്
-              ചെയ്യപ്പെടും.മറ്റൊരു gold-based lender ALPHA ഉപയോഗിച്ച് നിങ്ങൾ
+              താങ്കൾ അപ്‌ലോഡ് ചെയ്ത ഫോട്ടോ  <span className="green-text">ALPHA </span> ഡാറ്റാബേസിൽ സേവ്
+              ചെയ്യപ്പെടും.മറ്റൊരു gold-based lender  <span className="green-text">ALPHA </span> ഉപയോഗിച്ച് നിങ്ങൾ
               അപ്‌ലോഡ് ചെയ്ത ഫോട്ടോ തിരിച്ചറിയുകയാണെങ്കിൽ, നിങ്ങൾക്ക് അറിയിപ്പ്
               ലഭിക്കും. നിങ്ങൾ ALPHAയുടെ സബ്സ്ക്രിപ്ഷൻ നിർത്തിയാലും, രണ്ട്
-              വർഷംവരെ ALPHA സിസ്റ്റം നിങ്ങൾ അപ്‌ലോഡ് ചെയ്ത ഫോട്ടോക്ക് മാച്ച്
+              വർഷംവരെ  <span className="green-text">ALPHA </span> സിസ്റ്റം നിങ്ങൾ അപ്‌ലോഡ് ചെയ്ത ഫോട്ടോക്ക് മാച്ച്
               അന്വേഷിക്കും.
             </p>
           </div>
 
           <div className="upload-photo-form">
-            <div className="upload-photo-form-left">
-              <ol className="guide-list">
-                <li>
-                  <span className="color-green">"Upload Photo"</span> എന്ന
-                  ബട്ടണിൽ ക്ലിക്ക് ചെയ്യുക
-                </li>
-                <li>കമ്പ്യൂട്ടറിലെ ഫയലുകൾ തുറക്കപ്പെടും</li>
-                <li>
-                  അപ്‌ലോഡ് ചെയ്യാൻ ആഗ്രഹിക്കുന്ന{" "}
-                  <span className="color-green">ചിത്രം തിരഞ്ഞെടുക്കുക</span>
-                </li>
-                <li>
-                  <span className="color-green">Open ക്ലിക്ക്</span> ചെയ്യുക
-                </li>
-              </ol>
-            </div>
-            {/* Upload Button (from Uiverse.io by csemszepp) */}
-            <div className="upload-photo-form-right">
+              {/* Upload Button (from Uiverse.io by csemszepp) */}
+              <div className="upload-photo-form-right">
             <label htmlFor="file" className="custum-file-upload cs-w">
               <div className="fraud-list-controls">
                 <h5>{result}</h5>
@@ -284,10 +270,29 @@ const UploadFraud = ({ handleShowFraudCustomerList }) => {
               />
             </label>
             </div>
+            <div className="upload-photo-form-left">
+              <ol className="guide-list">
+                <li>
+                  <span className="color-green">"Upload Photo"</span> എന്ന
+                  ബട്ടണിൽ ക്ലിക്ക് ചെയ്യുക
+                </li>
+                <li>കമ്പ്യൂട്ടറിലെ ഫയലുകൾ തുറക്കപ്പെടും</li>
+                <li>
+                  അപ്‌ലോഡ് ചെയ്യാൻ ആഗ്രഹിക്കുന്ന{" "}
+                  <span className="color-green">ചിത്രം തിരഞ്ഞെടുക്കുക</span>
+                </li>
+                <li>
+                  <span className="color-green">Open ക്ലിക്ക്</span> ചെയ്യുക
+                </li>
+              </ol>
+            </div>
+          
           </div>
-          <div className="mal">
-          ഒരു ഫോട്ടോ തിരുത്തുകയോ നീക്കം ചെയ്യുകയോ വേണമെങ്കിൽ, Edit/Delete
-            ഐക്കണിൽ ക്ലിക്ക് ചെയ്യുക.
+          <div className="mal bottom-greenIn color-green">
+        <p>
+          <b>  ഒരു ഫോട്ടോ തിരുത്തുകയോ നീക്കം ചെയ്യുകയോ വേണമെങ്കിൽ, Edit/Delete
+          ഐക്കണിൽ ക്ലിക്ക് ചെയ്യുക.</b>
+        </p>
           </div>
         </div>
       )}

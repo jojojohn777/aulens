@@ -166,10 +166,11 @@ const Login = () => {
           <>
             <div className="main-login">
               <section className="main-section">
-                <div className="container  main-section-hero mar-sec sec logwithcont">
+                <div className="container sec ">
+                  <div className="main-section-hero mar-sec  logwithcont">
                   <div>
                     <p className="mal" lang="ml">
-                      ALPHA ഒരു AI-ആധാരിതമായ മുഖം തിരിച്ചറിയുന്ന പ്ലാറ്റ്ഫോമാണ്,
+                      <span className="green-text">ALPHA </span>     ഒരു AI-ആധാരിതമായ മുഖം തിരിച്ചറിയുന്ന പ്ലാറ്റ്ഫോമാണ്,
                       അത് ഇന്ത്യയാകമാനമുള്ള gold-based lenders നെ
                       ബന്ധിപ്പിക്കുന്നു. വ്യാജമോ മോഷണത്തിലൂടെ ലഭിച്ചോ ആയ
                       സ്വർണ്ണാഭരണങ്ങൾ പണയംവയ്ക്കാൻ ശ്രമിച്ചവരുടെ ഒരു ദേശീയ
@@ -177,20 +178,16 @@ const Login = () => {
                     </p>
                     <br />
                     <p className="mal" lang="ml">
-                      ALPHA ഉപയോഗിക്കുന്ന ഓരോ gold-based lender-ക്കും
-                      ഉപഭോക്താവിന്റെ ഫോട്ടോ എടുക്കാനും, ആ ചിത്രം ALPHA-യുടെ
+                      <span className="green-text">ALPHA </span>     ഉപയോഗിക്കുന്ന ഓരോ gold-based lender-ക്കും
+                      ഉപഭോക്താവിന്റെ ഫോട്ടോ എടുക്കാനും, ആ ചിത്രം <span className="green-text">ALPHA </span>    -യുടെ
                       പങ്കിട്ട ഡാറ്റാബേസിൽ പരിശോധിച്ച് മാച്ച് ഉണ്ടോ എന്ന്
                       നോക്കാനും സാധിക്കും. ഇതിലൂടെ ആവർത്തിച്ച് തട്ടിപ്പ് ചെയ്യാൻ
                       ശ്രമിക്കുന്നവരെ gold-based lender-ക്ക് തിരിച്ചറിയാനാകും.
                     </p>
                     <br />
-                    <p className="green-text mal" lang="ml">
-                      <b>
-                        ALPHA ഉപയോഗിക്കുന്ന വിധം – സുരക്ഷിതമായ ലെൻഡിങ്ങിന്
-                        എളുപ്പവും സുരക്ഷിതവുമായ മാർഗ്ഗനിർദ്ദേശം
-                      </b>
-                    </p>
+                   
                   </div>
+                  
                   <div>
                     <div className="login-container">
                       <div className="logologin">
@@ -245,14 +242,24 @@ const Login = () => {
                       </form>
                     </div>
                   </div>
+                  
+                  </div>
+                  <p className="green-text bottom-greenIn mal " lang="ml">
+                      <b>
+                        <span className="green-text">ALPHA </span>     ഉപയോഗിക്കുന്ന വിധം – സുരക്ഷിതമായ ലെൻഡിങ്ങിന്
+                        എളുപ്പവും സുരക്ഷിതവുമായ മാർഗ്ഗനിർദ്ദേശം
+                      </b>
+                    </p>
                 </div>
+               
               </section>
 
               <section
-                className="scan-photo-section fruad-section"
+                className=" fruad-section"
                 id="scan-photo"
               >
-                <div className="container  main-section-hero sec">
+                <div className="container  sec">
+                  <div className="main-section-hero top-section ">
                   <div>
                     <img className="img-drops" src={gif1} alt="" />
                   </div>
@@ -260,35 +267,40 @@ const Login = () => {
                     <h1 className="mal primary-headings">
                       തട്ടിപ്പുകാരുടെ ഡാറ്റാബേസ്{" "}
                     </h1>
-                    <br />
+              
                     <p className="mal">
                       നിങ്ങൾ വ്യാജമോ മോഷ്ടിച്ചതോ ആയ സ്വർണ്ണം പണയംവയ്ക്കാൻ
-                      ശ്രമിച്ചവരുടെ ഫോട്ടോകൾ ALPHA-യിലേക്ക് അപ്‌ലോഡ് ചെയ്യുക.
+                      ശ്രമിച്ചവരുടെ ഫോട്ടോകൾ <span className="green-text">ALPHA </span>    -യിലേക്ക് അപ്‌ലോഡ് ചെയ്യുക.
                       ശേഷം ഏതു സമയത്തും—വർഷങ്ങൾ കഴിഞ്ഞാലും—മറ്റൊരു gold-based
-                      lender ALPHA ഉപയോഗിച്ച് ആ ആളിനെ തിരിച്ചറിയുകയാണെങ്കിൽ,
-                      ALPHA നിങ്ങളെ അതിനെക്കുറിച്ച് അപ്പോള്‍ത്തന്നെ അറിയിക്കും.
-                      തിരിച്ചറിയുന്ന lender-നെ ബന്ധപ്പെടാൻ കഴിയുന്നതിനായി ALPHA
-                      നിങ്ങളുടെ കോൺടാക്റ്റ് വിവരങ്ങൾ അവർക്കും പങ്കുവെക്കും.
+                      lender <span className="green-text">ALPHA </span>     ഉപയോഗിച്ച് ആ ആളിനെ തിരിച്ചറിയുകയാണെങ്കിൽ,
+                      <span className="green-text">ALPHA </span>     നിങ്ങളെ അതിനെക്കുറിച്ച് അപ്പോള്‍ത്തന്നെ അറിയിക്കും.
+                      തിരിച്ചറിയുന്ന lender-നെ ബന്ധപ്പെടാൻ കഴിയുന്നതിനായി <span className="green-text">ALPHA </span>     
+                          നിങ്ങളുടെ കോൺടാക്റ്റ് വിവരങ്ങൾ അവർക്കും പങ്കുവെക്കും.
                       അതുപോലെ തന്നെ, നിങ്ങളും തിരിച്ചറിയുന്ന ആളുടെ കോൺടാക്റ്റ്
                       വിവരങ്ങൾ ലഭിക്കും.
                     </p>
 
-                    <br />
-                    <p className="mal green-text">
+              
+                   
+                  </div>
+
+                  
+                  </div>
+                  <p className="mal green-text bottom-greenIn">
                       <b>
-                        കൂടുതൽ money lenders ALPHA യിലേക്ക് ചേരുകയും,
+                        കൂടുതൽ money lenders <span className="green-text">ALPHA </span>     യിലേക്ക് ചേരുകയും,
                         പങ്കുവെക്കുന്ന ഡാറ്റാബേസ് വലുതാകുകയും ചെയ്യുമ്പോൾ,
                         ആവർത്തിച്ച് തട്ടിപ്പ് ചെയ്യാൻ ശ്രമിക്കുന്നവരിൽ നിന്ന്
-                        നിങ്ങളുടെ സുരക്ഷ ശക്തമാകുന്നു — തട്ടിപ്പുകളിൽ നിന്ന്
+                        നിങ്ങളുടെ സുരക്ഷ ശക്തമാകുന്നു തട്ടിപ്പുകളിൽ നിന്ന്
                         നിങ്ങൾക്ക് പ്രതിരോധശക്തിയുണ്ടാകുന്നു.
                       </b>
                     </p>
-                  </div>
                 </div>
               </section>
 
               <section className="scan-photo-section" id="scan-photo">
-                <div className="container  main-section-hero sec">
+                <div className="container   sec">
+                  <div className="main-section-hero ">
                   <div className="scan-photo-mob">
                     <h1 className="mal primary-headings">
                       ലെൻഡിംഗ് പ്രക്രിയയ്ക്കിടെ
@@ -296,49 +308,53 @@ const Login = () => {
 
                     <p className="mal">
                       ഫോട്ടോ എടുക്കുക – പുതിയതോ സംശയം ഉളവാക്കുന്ന കസ്റ്റമർമാരുടെ
-                      ഫോട്ടോ ALPHA ഇന്റർഫേസിലൂടെ എടുക്കുക. ആവശ്യമുണ്ടെങ്കിൽ,
+                      ഫോട്ടോ <span className="green-text">ALPHA </span>     ഇന്റർഫേസിലൂടെ എടുക്കുക. ആവശ്യമുണ്ടെങ്കിൽ,
                       നിലവിലുള്ള ഒരു ചിത്രം അപ്‌ലോഡ് ചെയ്യാനും കഴിയും.
                     </p>
-                    <br />
+               
                     <p className="mal">
-                      ALPHA യുടെ AI മുഖം തിരിച്ചറിയൽ സാങ്കേതികത ഉപയോഗിച്ച്,
+                      <span className="green-text">ALPHA </span>     യുടെ AI മുഖം തിരിച്ചറിയൽ സാങ്കേതികത ഉപയോഗിച്ച്,
                       കമ്മ്യൂണിറ്റിയിൽ നിന്നുള്ള തട്ടിപ്പുകാരുടെ ഡാറ്റാബേസിൽ
                       ചിത്രം തത്സമയം പരിശോധിക്കും.
                     </p>
-                    <br />
+            
                     <p className="mal">
                       മാച്ച് ലഭിച്ചാൽ, നിങ്ങൾക്കും ആ ചിത്രം ആദ്യം അപ്‌ലോഡ് ചെയ്ത
                       വ്യക്തിക്കും ഉടൻ അറിയിപ്പ് ലഭിക്കും. ബന്ധപ്പെടാൻ ആവശ്യമായ
                       കോൺടാക്റ്റ് വിവരങ്ങളും ഷെയർ ചെയ്യപ്പെടും
                     </p>
-                    <br />
+           
                     <p className="mal">
                       e-KYC – ആധാർ, പാൻ, വോട്ടർ ഐഡി, ഡ്രൈവിംഗ് ലൈസൻസ് എന്നിവ
                       പോലുള്ള തിരിച്ചറിയൽ രേഖകൾ ഉടൻ സ്ഥിരീകരിക്കാൻ കഴിയും.
                     </p>
-                    <br />
-                    <p className="mal green-text">
-                      <b>
-                        ALPHA സിസ്റ്റം കമ്പ്യൂട്ടറും മൊബൈലും ഉപയോഗിച്ച്
-                        പ്രവർത്തിക്കാൻ അനുയോജ്യമാണ്.
-                      </b>
-                    </p>
+             
                   </div>
                   <div>
                     <img className="img-drops" src={png2} alt="" />
                   </div>
+                  
+                </div>
+                <p className="mal green-text lending bottom-greenIn">
+                      <b>
+                        <span className="green-text">ALPHA </span>     സിസ്റ്റം കമ്പ്യൂട്ടറും മൊബൈലും ഉപയോഗിച്ച്
+                        പ്രവർത്തിക്കാൻ അനുയോജ്യമാണ്.
+                      </b>
+                    </p>
+                
                 </div>
               </section>
 
-              <section className="scan-photo-section" id="scan-photo">
-                <div className="container  main-section-hero sec">
+              <section className="" id="scan-photo">
+                <div className="container   sec">
+                  <div className="main-section-hero">
                   <div>
                     <img className="img-drops" src={png3} alt="" />
                   </div>
 
                   <div className="scan-photo-mob">
                     <h1 className="mal primary-headings">
-                      ALPHA ഉപയോഗിക്കേണ്ടത് എന്തിന്?
+                      <span className="green-text">ALPHA </span>     ഉപയോഗിക്കേണ്ടത് എന്തിന്?
                     </h1>
                     <h2 className="mal primary-headings">
                       സൗകര്യപ്രദവും സുരക്ഷിതവുമായ സ്മാർട്ട് സംരക്ഷണം
@@ -355,9 +371,17 @@ const Login = () => {
                       <li>
                         മുഖങ്ങൾ ഓർത്ത് വെക്കേണ്ടതുമില്ല, WhatsApp ഗ്രൂപ്പുകളിലെ
                         ഫോട്ടോകൾ ഓർത്ത് തിരിച്ചറിയേണ്ടതുമില്ല. നിങ്ങൾ
-                        ഉപയോഗിക്കുന്നത് ഒരു ദേശീയ ഡാറ്റാബേസായ ALPHA ആണ്
+                        ഉപയോഗിക്കുന്നത് ഒരു ദേശീയ ഡാറ്റാബേസായ <span className="green-text">ALPHA </span>     ആണ്
                       </li>
-                      <li>
+                    
+                    
+                    </ul>
+                  </div>
+                  
+                </div>
+                <div>
+                  <ul>
+                  <li>
                         അപ്‌ലോഡ് ചെയ്ത ഫോട്ടോകളുടെ സ്വകാര്യത ഉറപ്പാക്കുന്നു —
                         ചിത്രം അപ്‌ലോഡ് ചെയ്ത വ്യക്തിക്കും തിരിച്ചറിയുന്ന
                         വ്യക്തിക്കും മാത്രമേ അത് കാണാൻ കഴിയൂ
@@ -384,15 +408,16 @@ const Login = () => {
                         വർഷത്തേക്ക് നിങ്ങൾ അപ്‌ലോഡ് ചെയ്ത ഫോട്ടോകൾക്ക് മാച്ച്
                         കിട്ടിയാൽ, നിങ്ങള്‍ക്ക് അറിയിപ്പുകള്‍ ലഭിക്കും.
                       </li>
-                      <li className="green-text">
+                      <br />
+                      <li className="green-text bottom-greenIn">
                         <b>
                           വളരുന്ന ദേശീയ നെറ്റ്‌വർക്കിന്റെ ഭാഗമാകൂ — നമ്മെ
                           വഞ്ചിക്കുന്ന തട്ടിപ്പുകാരെതിരെ ഒരുമിച്ചുള്ള പ്രതിരോധം
                           നിർമ്മിക്കാം.
                         </b>{" "}
                       </li>
-                    </ul>
-                  </div>
+                  </ul>
+                </div>
                 </div>
               </section>
 
@@ -481,7 +506,7 @@ const Login = () => {
                     കണക്കാക്കിയെടുക്കപ്പെടും.
                   </p>{" "}
                   <br /> <br />
-                  <p className="mal ">
+                  <p className="mal last-text">
                     ശ്രദ്ധിക്കുക: തട്ടിപ്പുകാരുടെ ഫോട്ടോകൾ അപ്‌ലോഡ് ചെയ്യുന്നത്
                     എന്നും സൗജന്യവും പരിധിയില്ലാത്തതുമാണ്. നിങ്ങള്‍
                     സബ്സ്ക്രിപ്ഷന്‍ റദ്ദാക്കിയാലും, ശേഷം രണ്ട് വർഷത്തേക്ക്
@@ -489,10 +514,10 @@ const Login = () => {
                     ലഭിക്കുന്നതാണ്.
                   </p>
                   <br />
-                  <p className="mal green-text">
+                  <p className="mal green-text last-text">
                     <b>
                       ഒരു തട്ടിപ്പിനാൽ നിങ്ങൾക്ക് നഷ്ടമാകാവുന്ന തുകയുമായി
-                      താരതമ്യപ്പെടുത്തിയാൽ, ALPHA-യുടെ ചെലവ് വളരെ വളരെ
+                      താരതമ്യപ്പെടുത്തിയാൽ, <span className="green-text">ALPHA </span>    -യുടെ ചെലവ് വളരെ വളരെ
                       ചെറിയതായിരിക്കും.
                     </b>
                   </p>

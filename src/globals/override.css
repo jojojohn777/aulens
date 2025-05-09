@@ -130,12 +130,25 @@ ul {
   }
 }
 
+.lending{
+  margin-top: -50px !important;
+}
+.plan-card p{
+  font-size: 20px !important;
+}
+.last-text{
+  font-size: 20px !important;
+
+}
 #root {
   max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
   /* height: 120vh; */
+}
+.gol{
+  text-align: center !important;
 }
 
 .white-border {
@@ -147,6 +160,9 @@ ul {
   box-shadow: 0 0 20px rgba(93, 241, 93, 0.2);
   backdrop-filter: blur(12px);
   animation: fadeIn 1s ease;
+}
+.upload-photo-container1{
+  gap: 70px !important;
 }
 .upload-photo-container {
   ul {
@@ -231,7 +247,7 @@ ul {
   justify-content: space-between;
   align-content: center;
   align-items: center;
-  gap: 10px;
+  gap: 70px;
   /* max-width: 854.5px; */
 }
 .upload-photo-container .upload-photo-form-left{

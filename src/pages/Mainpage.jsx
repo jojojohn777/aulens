@@ -714,11 +714,11 @@ const Mainpage = ({ roleId, onLogout }) => {
               )}
             </div>
 
-            <div className="bottom-home-section my-4 btn btn--primary">
+            {/* <div className="bottom-home-section my-4 btn btn--primary">
               <div className="home-icon" onClick={handleHomeButton}>
                 Home
               </div>
-            </div>
+            </div> */}
           </div>
         ) : null}
     </>

@@ -30,7 +30,9 @@ body {
   margin: 0 auto;
 
 }
-
+.top-section{
+  align-items: top !important;
+}
 .wrapper {
   display: flex;
   align-items: center;
@@ -270,8 +272,7 @@ body {
 .main-section-hero {
   display: flex;
   flex-direction: row;
-  align-items: center;
-
+  align-items: start !important;
   justify-content: space-evenly;
   height: 100%;
   gap: 60px;
@@ -356,13 +357,9 @@ body {
 .kyc {
   display: flex;
   justify-content: space-between;
-
   align-items: center;
-  /* vertical centering */
   flex-wrap: wrap;
   gap: 160px;
-  ;
-
   height: 100%;
   padding: 40px 20px;
   border-bottom: 1px solid #e8e8e8;
@@ -372,8 +369,7 @@ body {
   height: 100%;
 }
 
-.left .e {
-
+.left .e{
   font-size: 100px;
   font-weight: bold;
   color: whitesmoke;
