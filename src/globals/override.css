@@ -135,7 +135,7 @@ ul {
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
-  height: 120vh;
+  /* height: 120vh; */
 }
 
 .white-border {
